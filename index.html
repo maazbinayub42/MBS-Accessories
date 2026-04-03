@@ -12,7 +12,7 @@
     <style>
         :root { 
             --gold: #C5A059;          
-            --bg: #a5896f;            
+            --bg: #8f755c;            
             --text: #1A1A1A;          
             --card: #FFFFFF;          
             --border: rgba(197, 160, 89, 0.3); 
@@ -34,14 +34,12 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Navigation */
         header { background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 100; }
         .nav-link { cursor: pointer; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; transition: 0.3s; color: var(--text); position: relative; }
         .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--gold); transition: 0.3s; }
         .nav-link:hover::after { width: 100%; }
         .nav-link:hover { color: var(--gold); }
 
-        /* Mobile Menu Fixed */
         #mobile-menu { position: fixed; top: 0; left: -100%; width: 85%; height: 100%; background: var(--bg); z-index: 2000; transition: 0.4s; border-right: 1px solid var(--gold); padding: 40px 20px; overflow-y: auto; }
         #mobile-menu.active { left: 0; }
         .mobile-link { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--text); border-bottom: 1px solid var(--border); padding: 15px 0; cursor: pointer; }
@@ -63,7 +61,6 @@
         .luxury-input { background: transparent; border-bottom: 2px solid #ddd; padding: 12px 0; width: 100%; color: #1A1A1A; font-size: 13px; font-weight: 600; outline: none; margin-bottom: 20px; }
         .luxury-input:focus { border-bottom: 2px solid var(--gold); }
 
-        /* Detail Modal */
         .detail-card { background: #ffffff; color: #1A1A1A; width: 100%; max-width: 700px; display: flex; flex-direction: column; md:flex-row; position: relative; border: 2px solid var(--gold); }
         .detail-left { flex: 1; background: #f9f9f9; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         .detail-right { flex: 1.2; padding: 30px; display: flex; flex-direction: column; justify-content: center; }
@@ -88,7 +85,6 @@
 
     <header class="fixed top-0 w-full py-4 px-6">
         <div class="container mx-auto flex justify-between items-center">
-            <!-- Hamburger Button Fixed -->
             <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-[var(--text)]"><i class="fa fa-bars"></i></button>
             <div onclick="showPage('home')" class="cursor-pointer"><img src="logo.png" alt="MBS Logo" class="h-8 md:h-16"></div>
             <nav class="hidden lg:flex space-x-7 items-center">
@@ -109,46 +105,31 @@
         </div>
     </header>
 
-    <!-- MOBILE MENU -->
     <div id="mobile-menu">
-        <div class="flex justify-between items-center mb-10">
-            <img src="logo.png" class="h-8">
-            <button onclick="toggleMobileMenu()" class="text-4xl text-[var(--text)]">&times;</button>
-        </div>
+        <div class="flex justify-between items-center mb-10"><img src="logo.png" class="h-8"><button onclick="toggleMobileMenu()" class="text-4xl">&times;</button></div>
         <span onclick="showPage('home'); toggleMobileMenu()" class="mobile-link">Home</span>
         <span onclick="goToShop('fragrances'); toggleMobileMenu()" class="mobile-link">Attars</span>
-        <span onclick="goToShop('imamaas'); toggleMobileMenu()" class="mobile-link">Imamaas</span>
-        <span onclick="goToShop('rugs'); toggleMobileMenu()" class="mobile-link">Salah Rugs</span>
         <span onclick="showPage('about'); toggleMobileMenu()" class="mobile-link">About Us</span>
         <span onclick="showPage('contact'); toggleMobileMenu()" class="mobile-link">Contact</span>
     </div>
 
-    <!-- PRODUCT DETAIL MODAL -->
     <div id="product-detail-modal">
         <div class="detail-card">
             <button onclick="closeProductDetail()" class="absolute top-4 right-4 text-2xl z-20 text-black hover:text-gold transition">&times;</button>
-            <div class="detail-left">
-                <img id="detail-img" src="" class="max-h-[250px] w-full object-contain mb-4">
-                <div class="thumb-row" id="detail-thumbs"></div>
-            </div>
+            <div class="detail-left"><img id="detail-img" src="" class="max-h-[250px] w-full object-contain mb-4"><div class="thumb-row" id="detail-thumbs"></div></div>
             <div class="detail-right">
                 <h4 id="detail-category" class="text-gold uppercase tracking-widest text-[9px] font-bold mb-2">Category</h4>
                 <h2 id="detail-name" class="text-3xl serif italic mb-4">Product Name</h2>
-                <p class="text-gray-500 text-xs leading-relaxed mb-6">Premium selection from MBS. Spiritual tradition meets artisanal excellence.</p>
+                <p class="text-gray-500 text-xs leading-relaxed mb-6">Premium selection from MBS.</p>
                 <h3 id="detail-price" class="text-xl font-bold text-black mb-6">Rs. 0</h3>
                 <div class="flex items-center gap-4">
-                    <div class="qty-box">
-                        <div class="qty-btn" onclick="updateDetailQty(-1)">-</div>
-                        <input type="text" id="detail-qty" value="1" class="qty-input" readonly>
-                        <div class="qty-btn" onclick="updateDetailQty(1)">+</div>
-                    </div>
+                    <div class="qty-box"><div class="qty-btn" onclick="updateDetailQty(-1)">-</div><input type="text" id="detail-qty" value="1" class="qty-input" readonly><div class="qty-btn" onclick="updateDetailQty(1)">+</div></div>
                     <button id="detail-add-btn" class="flex-grow bg-black text-white py-3 font-bold uppercase text-[10px] tracking-widest hover:bg-gold transition">Add to Cart</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Cart Sidebar -->
     <div id="cart-sidebar" class="flex flex-col">
         <div class="p-8 border-b border-gold/20 flex justify-between items-center"><h3 class="serif italic text-2xl text-gold">My Selection</h3><button onclick="toggleCart()" class="text-3xl text-black">&times;</button></div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
@@ -158,7 +139,6 @@
         </div>
     </div>
 
-    <!-- Checkout Modal with Cancel Button -->
     <div id="checkout-modal">
         <div class="checkout-card relative">
             <button onclick="closeCheckout()" class="absolute top-4 right-4 text-2xl opacity-50">&times;</button>
@@ -181,7 +161,6 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <main id="home-page" class="page-node page-active">
         <section class="hero-banner h-[100vh] flex flex-col items-center justify-center text-center px-6 relative">
             <h2 class="text-6xl md:text-9xl mb-6 serif italic text-white reveal">Elegance Meets <br> <span class="text-gold"> The Fragrance</span></h2>
@@ -191,39 +170,29 @@
 
     <main id="shop-page" class="page-node pt-40 pb-24"><div class="container mx-auto px-6 reveal" id="shop-content"></div></main>
 
-    <!-- Restored About Us -->
     <main id="about-page" class="page-node pt-40 pb-24">
         <div class="container mx-auto px-6 max-w-6xl reveal">
-            <div class="flex flex-col items-center mb-24 text-center">
-                <h2 class="text-6xl serif italic text-gold mb-4">About Us</h2>
-                <div class="w-24 h-1 bg-gold mb-6"></div>
-                <p class="opacity-40 uppercase tracking-[0.4em] text-xs font-black">Inspired by Seerah and Sunnah</p>
-            </div>
+            <div class="flex flex-col items-center mb-24 text-center"><h2 class="text-6xl serif italic text-gold mb-4">About Us</h2><p class="opacity-40 uppercase tracking-[0.4em] text-xs font-black">Inspired by Seerah and Sunnah</p></div>
             <div class="flex flex-col lg:flex-row items-center gap-20">
-                <div class="w-full lg:w-1/2 space-y-10">
-                    <h3 class="text-4xl font-bold mb-3">Muhammad Bin Saqib</h3>
-                    <p class="opacity-80 text-lg">Founder & CEO of MBS. Dedicated to creating a premium Islamic lifestyle brand.</p>
-                </div>
+                <div class="w-full lg:w-1/2 space-y-10"><h3 class="text-4xl font-bold mb-3">Muhammad Bin Saqib</h3><p class="opacity-80 text-lg">Founder & CEO of MBS. Spiritual tradition meets modern luxury.</p></div>
                 <div class="w-full lg:w-1/2 flex justify-end"><img src="ceo.jpeg" class="w-80 h-[450px] object-cover shadow-2xl"></div>
             </div>
         </div>
     </main>
 
-    <!-- Restored Contact Us -->
     <main id="contact-page" class="page-node pt-40 pb-24">
         <div class="container mx-auto px-6 max-w-5xl text-center reveal">
             <h2 class="text-6xl serif italic mb-6 text-gold">Contact Us</h2>
             <div class="grid md:grid-cols-2 gap-16 text-left mt-24">
                 <div>
                     <h3 class="text-xl text-gold serif italic mb-6">WhatsApp Support</h3>
-                    <a href="https://wa.me/923707107422" target="_blank" class="text-2xl font-black text-black">+92 370 7107422</a>
+                    <a href="https://wa.me/923707107422" target="_blank" class="text-2xl font-black">+92 370 7107422</a>
                     <p class="mt-8 text-sm"><i class="fa fa-envelope text-gold mr-3"></i> mbsislamicaccessories@gmail.com</p>
                     <a href="https://maps.app.goo.gl/CQzKdfCSbcFvJPnG8" target="_blank" class="block mt-4 text-sm font-bold"><i class="fa fa-map-marker-alt text-gold mr-3"></i> Shop #2, Adyala Road, RWP</a>
                 </div>
                 <div class="bg-white p-10 border border-gold/20 shadow-2xl">
                     <form action="https://formspree.io/f/mkoqdyry" method="POST" class="space-y-6">
-                        <input type="text" name="name" placeholder="YOUR NAME" class="luxury-input" required>
-                        <textarea name="message" rows="4" placeholder="MESSAGE" class="luxury-input" required></textarea>
+                        <input type="text" name="name" placeholder="YOUR NAME" class="luxury-input" required><textarea name="message" rows="4" placeholder="MESSAGE" class="luxury-input" required></textarea>
                         <button type="submit" class="w-full bg-black text-white py-4 font-bold uppercase text-xs">Send Message</button>
                     </form>
                 </div>
@@ -231,13 +200,12 @@
         </div>
     </main>
 
-    <!-- MBS FOOTER RESTORED -->
     <footer class="border-t border-gold/20 py-20 bg-[#e7c29c] reveal">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div class="col-span-1">
                     <img src="logo.png" alt="MBS Logo" class="h-12 mb-6 mx-auto md:mx-0">
-                    <p class="text-[10px] uppercase tracking-[0.2em] opacity-60 leading-loose text-center md:text-left">Redefining Islamic luxury through spiritual heritage.</p>
+                    <p class="text-[10px] uppercase tracking-[0.2em] opacity-60 leading-loose text-center md:text-left font-medium">Redefining Islamic luxury through spiritual heritage.</p>
                 </div>
                 <div class="border-b border-gold/10 md:border-0 pb-4 md:pb-0">
                     <h4 onclick="toggleFooterSect('foot-nav')" class="serif italic text-gold text-2xl mb-4 md:mb-8 flex justify-between items-center cursor-pointer md:cursor-default">Navigation <i class="fa fa-chevron-down text-[10px] md:hidden"></i></h4>
@@ -251,7 +219,11 @@
                 </div>
                 <div class="text-center md:text-left">
                     <h4 class="serif italic text-gold text-2xl mb-8">Social Presence</h4>
-                    <div class="flex justify-center md:justify-start space-x-8 text-2xl"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/923707107422"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div>
+                    <div class="flex justify-center md:justify-start space-x-8 text-2xl">
+                        <a href="https://www.facebook.com/share/1ArXGBZq2e/" target="_blank" class="hover:text-gold transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/923707107422" target="_blank" class="hover:text-gold transition"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/mbs_islamic_accessories/" target="_blank" class="hover:text-gold transition"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="pt-12 border-t border-black/5 text-center text-[10px] uppercase opacity-40 font-bold">&copy; 2026 Muhammad Bin Saqib | Maaz Bin Ayyub.</div>
@@ -259,31 +231,11 @@
     </footer>
 
     <script>
-    let cart = [];
-    const WA_NUMBER = "923707107422";
-    let allProducts = [];
-
-    // Hamburger Logic Fix
-    function toggleMobileMenu() { 
-        document.getElementById('mobile-menu').classList.toggle('active'); 
-    }
-
-    function showPage(id) {
-        document.querySelectorAll('.page-node').forEach(p => p.classList.remove('page-active'));
-        document.getElementById(id + '-page').classList.add('page-active');
-        window.scrollTo({top: 0, behavior: 'smooth'});
-        handleReveal();
-    }
-    
-    function toggleFooterSect(id) {
-        if (window.innerWidth < 768) { 
-            const sect = document.getElementById(id);
-            sect.classList.toggle('hidden');
-        }
-    }
-
+    let cart = []; const WA_NUMBER = "923707107422"; let allProducts = [];
+    function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('active'); }
+    function showPage(id) { document.querySelectorAll('.page-node').forEach(p => p.classList.remove('page-active')); document.getElementById(id + '-page').classList.add('page-active'); window.scrollTo({top: 0, behavior: 'smooth'}); handleReveal(); }
+    function toggleFooterSect(id) { if (window.innerWidth < 768) { const sect = document.getElementById(id); sect.classList.toggle('hidden'); } }
     function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
-    
     function updateCartUI() {
         const container = document.getElementById('cart-items');
         document.getElementById('cart-count').innerText = cart.reduce((acc, item) => acc + item.qty, 0);
@@ -294,64 +246,43 @@
         }).join('');
         document.getElementById('cart-total').innerText = `Rs. ${total.toLocaleString()}`;
     }
-
     function addToCart(name, price, img, qty = 1) {
         const existing = cart.find(i => i.name === name);
-        if(existing) { existing.qty += qty; } 
-        else { cart.push({ name, price: parseInt(price.toString().replace(/,/g, '')), img, qty }); }
-        updateCartUI();
-        document.getElementById('checkout-pointer').style.display = 'block';
+        if(existing) { existing.qty += qty; } else { cart.push({ name, price: parseInt(price.toString().replace(/,/g, '')), img, qty }); }
+        updateCartUI(); document.getElementById('checkout-pointer').style.display = 'block';
         setTimeout(() => { document.getElementById('checkout-pointer').style.display = 'none'; }, 3000);
         if(window.innerWidth > 1024) document.getElementById('cart-sidebar').classList.add('open');
     }
-
     function removeItem(index) { cart.splice(index, 1); updateCartUI(); }
     function openCheckout() { if(cart.length > 0) document.getElementById('checkout-modal').style.display = 'flex'; }
     function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
     function cancelOrder() { cart = []; updateCartUI(); closeCheckout(); alert("Order Cancelled."); }
     function togglePayMsg(show) { document.getElementById('online-msg').style.display = show ? 'block' : 'none'; }
-
     function openProductDetail(index) {
-        const p = allProducts[index];
-        document.getElementById('detail-img').src = p.i;
-        document.getElementById('detail-name').innerText = p.n;
-        document.getElementById('detail-price').innerText = `Rs. ${p.p}`;
-        document.getElementById('detail-category').innerText = p.cat;
-        document.getElementById('detail-qty').value = 1;
-        const thumbRow = document.getElementById('detail-thumbs');
-        thumbRow.innerHTML = '';
+        const p = allProducts[index]; document.getElementById('detail-img').src = p.i;
+        document.getElementById('detail-name').innerText = p.n; document.getElementById('detail-price').innerText = `Rs. ${p.p}`;
+        document.getElementById('detail-category').innerText = p.cat; document.getElementById('detail-qty').value = 1;
+        const thumbRow = document.getElementById('detail-thumbs'); thumbRow.innerHTML = '';
         for(let i=0; i<4; i++) { thumbRow.innerHTML += `<img src="${p.i}" class="thumb-box">`; }
         document.getElementById('detail-add-btn').onclick = () => { addToCart(p.n, p.p, p.i, parseInt(document.getElementById('detail-qty').value)); closeProductDetail(); };
         document.getElementById('product-detail-modal').style.display = 'flex';
     }
     function closeProductDetail() { document.getElementById('product-detail-modal').style.display = 'none'; }
-    function updateDetailQty(val) {
-        let input = document.getElementById('detail-qty');
-        let newQty = parseInt(input.value) + val;
-        if(newQty >= 1) input.value = newQty;
-    }
-
+    function updateDetailQty(val) { let input = document.getElementById('detail-qty'); let newQty = parseInt(input.value) + val; if(newQty >= 1) input.value = newQty; }
     function handleFinalSubmit(e) {
         e.preventDefault();
         let msg = `*MBS ORDER*\nCustomer: ${document.getElementById('cust-name').value}\nItems:\n`;
         cart.forEach(i => { msg += `- ${i.name} x${i.qty} (Rs. ${i.price.toLocaleString()})\n`; });
-        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-        closeCheckout();
+        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); closeCheckout();
     }
-
-    function goToShop(sect) {
-        showPage('shop');
-        setTimeout(() => { const el = document.getElementById(sect + '-sect'); if(el) window.scrollTo({top: el.offsetTop - 120, behavior: 'smooth'}); }, 200);
-    }
-
+    function goToShop(sect) { showPage('shop'); setTimeout(() => { const el = document.getElementById(sect + '-sect'); if(el) window.scrollTo({top: el.offsetTop - 120, behavior: 'smooth'}); }, 200); }
     function generate() {
         const sections = [
             { id: 'fragrances', title: 'Premium Attars', items: Array(8).fill({n: "Royal Musk", p: "3,500", i: "ceo.jpeg"}) },
             { id: 'imamaas', title: 'Royal Imamaas', items: Array(4).fill({n: "Cotton Imama", p: "1,800", i: "ceo.jpeg"}) },
             { id: 'rugs', title: 'Salah Rugs', items: Array(4).fill({n: "Velvet Rug", p: "5,000", i: "ceo.jpeg"}) }
         ];
-        const container = document.getElementById('shop-content');
-        if(!container) return;
+        const container = document.getElementById('shop-content'); if(!container) return;
         container.innerHTML = ""; allProducts = [];
         sections.forEach(sec => {
             let html = `<section id="${sec.id}-sect" class="mb-24 reveal"><h3 class="text-2xl serif italic text-gold mb-10 border-b border-gold/20 pb-4">${sec.title}</h3><div class="grid grid-cols-2 lg:grid-cols-4 gap-8">`;
@@ -363,15 +294,8 @@
         });
         handleReveal();
     }
-
-    function handleReveal() {
-        const reveals = document.querySelectorAll('.reveal');
-        for (let i = 0; i < reveals.length; i++) {
-            if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) reveals[i].classList.add('active');
-        }
-    }
-    window.addEventListener('scroll', handleReveal);
-    window.onload = generate;
+    function handleReveal() { const reveals = document.querySelectorAll('.reveal'); for (let i = 0; i < reveals.length; i++) { if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) reveals[i].classList.add('active'); } }
+    window.addEventListener('scroll', handleReveal); window.onload = generate;
     </script>
 </body>
 </html>
