@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO & META TAGS -->
@@ -11,13 +11,13 @@
     <meta name="author" content="MBS | Maaz Bin Ayyub">
     
     <!-- GOOGLE SEARCH CONSOLE -->
-    <meta name="google-site-verification" content="Y3F2S0IvVAeJmSNWqodDr8X-lKbVPPGqdBR3cSHmpYw" />
+    <meta name="google-site-verification" content="y5QSKZAHDSxdsF_Wrc80O1Xh1wIwCftNlx1OyALgu-k" />
 
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+   
     <style>
         :root { 
             --gold: #C5A059;          
@@ -59,9 +59,8 @@
         #mobile-menu.active { left: 0; }
         .mobile-link { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--text); border-bottom: 1px solid var(--border); padding: 15px 0; cursor: pointer; }
 
-        /* HOME PAGE BACKGROUND - UPDATED WITH YOUR IMAGE */
         .hero-banner { 
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hero.jpg');
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('hero.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -108,7 +107,9 @@
                 <span onclick="showPage('home')" class="nav-link">Home</span>
                 <span onclick="goToShop('fragrances')" class="nav-link">Attars</span>
                 <span onclick="goToShop('imamaas')" class="nav-link">Imamaas</span>
+                <span onclick="goToShop('topis')" class="nav-link">Topis & Kufis</span>
                 <span onclick="goToShop('rugs')" class="nav-link">Salah Rugs</span>
+                <span onclick="goToShop('tasbeehs')" class="nav-link">Tasbeehs</span>
                 <span onclick="showPage('about')" class="nav-link">About Us</span>
                 <span onclick="showPage('contact')" class="nav-link">Contact</span>
             </nav>
@@ -126,25 +127,21 @@
         <div class="flex justify-between items-center mb-10"><img src="logo.png" class="h-8"><button onclick="toggleMobileMenu()" class="text-4xl">&times;</button></div>
         <span onclick="showPage('home'); toggleMobileMenu()" class="mobile-link">Home</span>
         <span onclick="goToShop('fragrances'); toggleMobileMenu()" class="mobile-link">Attars</span>
+        <span onclick="goToShop('imamaas'); toggleMobileMenu()" class="mobile-link">Imamaas</span>
+        <span onclick="goToShop('topis'); toggleMobileMenu()" class="mobile-link">Topis & Kufis</span>
+        <span onclick="goToShop('rugs'); toggleMobileMenu()" class="mobile-link">Salah Rugs</span>
+        <span onclick="goToShop('tasbeehs'); toggleMobileMenu()" class="mobile-link">Tasbeehs</span>
         <span onclick="showPage('about'); toggleMobileMenu()" class="mobile-link">About Us</span>
         <span onclick="showPage('contact'); toggleMobileMenu()" class="mobile-link">Contact</span>
     </div>
 
     <!-- MAIN PAGES -->
     <main id="home-page" class="page-node page-active">
-    <section class="hero-banner h-[100vh] flex flex-col items-center justify-center text-center px-6 relative">
-        <!-- Title ko thoda drop shadow diya hai taake wo image par aur khul kar nazar aaye -->
-        <h2 class="text-6xl md:text-9xl mb-6 serif italic text-white reveal drop-shadow-2xl">
-            Faith And <br> <span class="text-gold"> Fragrance</span>
-        </h2>
-        
-        <!-- Button ka text aur border white kar diya hai visibility ke liye -->
-        <button onclick="goToShop('fragrances')" 
-                class="border-2 border-white text-white font-bold px-16 py-5 hover:bg-white hover:text-black transition uppercase text-xs reveal shadow-lg">
-            Explore Catalog
-        </button>
-    </section>
-</main>
+        <section class="hero-banner h-[100vh] flex flex-col items-center justify-center text-center px-6 relative">
+            <h2 class="text-6xl md:text-9xl mb-6 serif italic text-white reveal drop-shadow-2xl">Faith And <br> <span class="text-gold"> Fragrance</span></h2>
+            <button onclick="goToShop('fragrances')" class="border-2 border-white text-white font-bold px-16 py-5 hover:bg-white hover:text-black transition uppercase text-xs reveal shadow-lg">Explore Catalog</button>
+        </section>
+    </main>
 
     <main id="shop-page" class="page-node pt-40 pb-24"><div class="container mx-auto px-6" id="shop-content"></div></main>
 
@@ -178,7 +175,7 @@
         </div>
     </main>
 
-    <!-- MODALS RESTORED -->
+    <!-- MODALS -->
     <div id="product-detail-modal">
         <div class="detail-card">
             <button onclick="closeProductDetail()" class="absolute top-4 right-4 text-2xl z-20 text-black hover:text-gold transition">&times;</button>
@@ -219,7 +216,7 @@
                         <label class="text-[12px] flex items-center gap-2 cursor-pointer font-bold"><input type="radio" name="payment" value="COD" checked onclick="togglePayMsg(false)"> COD</label>
                         <label class="text-[12px] flex items-center gap-2 cursor-pointer font-bold"><input type="radio" name="payment" value="Online" onclick="togglePayMsg(true)"> Online</label>
                     </div>
-                    <div id="online-msg">⚠️ Payment (EasyPesa): Same Number(03707107422). <br> Send screenshot on WhatsApp.</div>
+                    <div id="online-msg">⚠️ Payment (EasyPesa): Same Number (03707107422). <br> Send screenshot on WhatsApp.</div>
                 </div>
                 <button type="submit" class="w-full bg-black text-white py-4 font-bold uppercase text-[11px] hover:bg-gold transition">Place Order via WhatsApp</button>
             </form>
@@ -248,6 +245,7 @@
                     <ul class="space-y-4 text-sm opacity-70">
                         <li onclick="showPage('home')" class="cursor-pointer hover:text-gold transition">Home</li>
                         <li onclick="goToShop('fragrances')" class="cursor-pointer hover:text-gold transition">Our Attars</li>
+                        <li onclick="goToShop('topis')" class="cursor-pointer hover:text-gold transition">Topis & Kufis</li>
                         <li onclick="showPage('about')" class="cursor-pointer hover:text-gold transition">Our Story</li>
                         <li onclick="showPage('contact')" class="cursor-pointer hover:text-gold transition">Contact Us</li>
                     </ul>
@@ -339,48 +337,33 @@
         if(newQty >= 1) input.value = newQty; 
     }
 
-  function handleFinalSubmit(e) {
-    e.preventDefault();
-    
-    // Form se data uthana
-    const name = document.getElementById('cust-name').value;
-    const city = document.getElementById('cust-city').value;
-    const address = document.getElementById('cust-address').value;
-    const payment = document.querySelector('input[name="payment"]:checked').value;
-    
-    let total = 0;
-    let itemsList = "";
-    
-    // Cart items ko list mein convert karna aur total nikalna
-    cart.forEach(i => {
-        const itemTotal = i.price * i.qty;
-        total += itemTotal;
-        itemsList += `▪️ *${i.name}* (x${i.qty}) - Rs. ${itemTotal.toLocaleString()}\n`;
-    });
-
-    // WhatsApp ka poora message taiyar karna
-    let msg = `*MBS NEW ORDER*\n\n`;
-    msg += `👤 *Customer:* ${name}\n`;
-    msg += `📍 *City:* ${city}\n`;
-    msg += `🏠 *Address:* ${address}\n`;
-    msg += `💳 *Payment:* ${payment}\n\n`;
-    msg += `📦 *Order Details:*\n${itemsList}\n`;
-    msg += `💰 *TOTAL AMOUNT: Rs. ${total.toLocaleString()}*\n\n`;
-    msg += `_Please confirm my order._`;
-
-    // WhatsApp window open karna
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); 
-    
-    // Modal band karna
-    closeCheckout();
-
-    // --- THANK YOU MESSAGE ---
-    alert("oh ji shukriya ji bhut bhut ji💕💖");
-
-    // Order ke baad cart ko clear karna
-    cart = [];
-    updateCartUI();
-}
+    function handleFinalSubmit(e) {
+        e.preventDefault();
+        const name = document.getElementById('cust-name').value;
+        const city = document.getElementById('cust-city').value;
+        const address = document.getElementById('cust-address').value;
+        const payment = document.querySelector('input[name="payment"]:checked').value;
+        let total = 0;
+        let itemsList = "";
+        cart.forEach(i => {
+            const itemTotal = i.price * i.qty;
+            total += itemTotal;
+            itemsList += `▪️ *${i.name}* (x${i.qty}) - Rs. ${itemTotal.toLocaleString()}\n`;
+        });
+        let msg = `*MBS NEW ORDER*\n\n`;
+        msg += `👤 *Customer:* ${name}\n`;
+        msg += `📍 *City:* ${city}\n`;
+        msg += `🏠 *Address:* ${address}\n`;
+        msg += `💳 *Payment:* ${payment}\n\n`;
+        msg += `📦 *Order Details:*\n${itemsList}\n`;
+        msg += `💰 *TOTAL AMOUNT: Rs. ${total.toLocaleString()}*\n\n`;
+        msg += `_Please confirm my order._`;
+        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); 
+        closeCheckout();
+        alert("oh ji shukriya ji bhut bhut ji💕💖");
+        cart = [];
+        updateCartUI();
+    }
 
     function goToShop(sect) { 
         showPage('shop'); 
@@ -394,7 +377,9 @@
         const sections = [
             { id: 'fragrances', title: 'Premium Attars', items: Array(8).fill({n: "Royal Musk", p: "3,500", i: "ceo.jpeg"}) },
             { id: 'imamaas', title: 'Royal Imamaas', items: Array(4).fill({n: "Cotton Imama", p: "1,800", i: "ceo.jpeg"}) },
-            { id: 'rugs', title: 'Salah Rugs', items: Array(4).fill({n: "Velvet Rug", p: "5,000", i: "ceo.jpeg"}) }
+            { id: 'topis', title: 'Topis & Kufis', items: Array(4).fill({n: "Premium Kufi", p: "1,200", i: "ceo.jpeg"}) },
+            { id: 'rugs', title: 'Salah Rugs', items: Array(4).fill({n: "Velvet Rug", p: "5,000", i: "ceo.jpeg"}) },
+            { id: 'tasbeehs', title: 'Counters & Tasbeehs', items: Array(4).fill({n: "Crystal Tasbeeh", p: "800", i: "ceo.jpeg"}) }
         ];
         const container = document.getElementById('shop-content'); if(!container) return;
         container.innerHTML = ""; allProducts = [];
