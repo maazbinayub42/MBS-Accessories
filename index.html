@@ -132,11 +132,19 @@
 
     <!-- MAIN PAGES -->
     <main id="home-page" class="page-node page-active">
-        <section class="hero-banner h-[100vh] flex flex-col items-center justify-center text-center px-6 relative">
-            <h2 class="text-6xl md:text-9xl mb-6 serif italic text-white reveal">Faith And <br> <span class="text-gold"> Fragrance</span></h2>
-            <button onclick="goToShop('fragrances')" class="border-2 border-gold text-gold font-bold px-16 py-5 hover:bg-gold hover:text-black transition uppercase text-xs reveal">Explore Catalog</button>
-        </section>
-    </main>
+    <section class="hero-banner h-[100vh] flex flex-col items-center justify-center text-center px-6 relative">
+        <!-- Title ko thoda drop shadow diya hai taake wo image par aur khul kar nazar aaye -->
+        <h2 class="text-6xl md:text-9xl mb-6 serif italic text-white reveal drop-shadow-2xl">
+            Faith And <br> <span class="text-gold"> Fragrance</span>
+        </h2>
+        
+        <!-- Button ka text aur border white kar diya hai visibility ke liye -->
+        <button onclick="goToShop('fragrances')" 
+                class="border-2 border-white text-white font-bold px-16 py-5 hover:bg-white hover:text-black transition uppercase text-xs reveal shadow-lg">
+            Explore Catalog
+        </button>
+    </section>
+</main>
 
     <main id="shop-page" class="page-node pt-40 pb-24"><div class="container mx-auto px-6" id="shop-content"></div></main>
 
@@ -211,7 +219,7 @@
                         <label class="text-[12px] flex items-center gap-2 cursor-pointer font-bold"><input type="radio" name="payment" value="COD" checked onclick="togglePayMsg(false)"> COD</label>
                         <label class="text-[12px] flex items-center gap-2 cursor-pointer font-bold"><input type="radio" name="payment" value="Online" onclick="togglePayMsg(true)"> Online</label>
                     </div>
-                    <div id="online-msg">⚠️ Payment (EasyPesa): Same Number. <br> Send screenshot on WhatsApp.</div>
+                    <div id="online-msg">⚠️ Payment (EasyPesa): Same Number(03707107422). <br> Send screenshot on WhatsApp.</div>
                 </div>
                 <button type="submit" class="w-full bg-black text-white py-4 font-bold uppercase text-[11px] hover:bg-gold transition">Place Order via WhatsApp</button>
             </form>
@@ -331,13 +339,48 @@
         if(newQty >= 1) input.value = newQty; 
     }
 
-    function handleFinalSubmit(e) {
-        e.preventDefault();
-        let msg = `*MBS ORDER*\nCustomer: ${document.getElementById('cust-name').value}\nItems:\n`;
-        cart.forEach(i => { msg += `- ${i.name} x${i.qty} (Rs. ${i.price.toLocaleString()})\n`; });
-        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); 
-        closeCheckout();
-    }
+  function handleFinalSubmit(e) {
+    e.preventDefault();
+    
+    // Form se data uthana
+    const name = document.getElementById('cust-name').value;
+    const city = document.getElementById('cust-city').value;
+    const address = document.getElementById('cust-address').value;
+    const payment = document.querySelector('input[name="payment"]:checked').value;
+    
+    let total = 0;
+    let itemsList = "";
+    
+    // Cart items ko list mein convert karna aur total nikalna
+    cart.forEach(i => {
+        const itemTotal = i.price * i.qty;
+        total += itemTotal;
+        itemsList += `▪️ *${i.name}* (x${i.qty}) - Rs. ${itemTotal.toLocaleString()}\n`;
+    });
+
+    // WhatsApp ka poora message taiyar karna
+    let msg = `*MBS NEW ORDER*\n\n`;
+    msg += `👤 *Customer:* ${name}\n`;
+    msg += `📍 *City:* ${city}\n`;
+    msg += `🏠 *Address:* ${address}\n`;
+    msg += `💳 *Payment:* ${payment}\n\n`;
+    msg += `📦 *Order Details:*\n${itemsList}\n`;
+    msg += `💰 *TOTAL AMOUNT: Rs. ${total.toLocaleString()}*\n\n`;
+    msg += `_Please confirm my order._`;
+
+    // WhatsApp window open karna
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); 
+    
+    // Modal band karna
+    closeCheckout();
+
+    // --- THANK YOU MESSAGE ---
+    alert("oh ji shukriya ji bhut bhut ji💕💖");
+
+    // Order ke baad cart ko clear karna
+    cart = [];
+    updateCartUI();
+}
 
     function goToShop(sect) { 
         showPage('shop'); 
