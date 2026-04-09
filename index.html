@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="google-site-verification" content="y5QSKZAHDSxdsF_Wrc80O1Xh1wIwCftNlx1OyALgu-k" />
    
     <style>
         :root { 
@@ -59,7 +60,6 @@
         .qty-btn { padding: 5px 15px; cursor: pointer; font-weight: bold; }
         .qty-input { width: 40px; text-align: center; border: none; background: transparent; font-weight: bold; }
 
-        /* Thumbnails Styling */
         .thumb-row { display: flex; gap: 8px; margin-top: 15px; }
         .thumb-box { width: 60px; height: 60px; border: 2px solid transparent; cursor: pointer; border-radius: 4px; object-fit: cover; opacity: 0.6; transition: 0.3s; }
         .thumb-box:hover, .thumb-box.active-thumb { opacity: 1; border-color: var(--gold); }
@@ -113,10 +113,8 @@
         </section>
     </main>
 
-    <!-- SHOP PAGE -->
     <main id="shop-page" class="page-node pt-40 pb-24"><div class="container mx-auto px-6" id="shop-content"></div></main>
 
-    <!-- ABOUT PAGE -->
     <main id="about-page" class="page-node pt-40 pb-24">
         <div class="container mx-auto px-6 max-w-6xl reveal text-center">
             <h2 class="text-6xl serif italic text-gold mb-4">About Us</h2>
@@ -124,19 +122,17 @@
             <div class="flex flex-col lg:flex-row items-center gap-20">
                 <div class="w-full lg:w-1/2 space-y-10 text-left">
                     <h3 class="text-4xl font-bold mb-3">Muhammad Bin Saqib</h3>
-                    <p class="opacity-80 text-lg">Founder & CEO of MBS. Our brand is built on the foundation of spiritual tradition meeting modern luxury.</p>
+                    <p class="opacity-80 text-lg">Founder & CEO of MBS. Spiritual tradition meets modern luxury.</p>
                 </div>
-                <div class="w-full lg:w-1/2 flex justify-end"></div>
+                <div class="w-full lg:w-1/2 flex justify-end"><img src="ceo.jpeg" class="w-80 h-[450px] object-cover shadow-2xl rounded-lg"></div>
             </div>
         </div>
     </main>
 
-    <!-- CONTACT PAGE -->
     <main id="contact-page" class="page-node pt-40 pb-24">
         <div class="container mx-auto px-6 max-w-5xl text-center reveal">
             <h2 class="text-6xl serif italic mb-6 text-gold">Contact Us</h2>
-            <p class="mb-12">We would love to hear from you</p>
-            <div class="grid md:grid-cols-2 gap-16 text-left">
+            <div class="grid md:grid-cols-2 gap-16 text-left mt-12">
                 <div>
                     <h3 class="text-xl text-gold serif italic mb-6">WhatsApp Support</h3>
                     <a href="https://wa.me/923707107422" target="_blank" class="text-2xl font-black">+92 370 7107422</a>
@@ -156,9 +152,12 @@
     <!-- OWNER DASHBOARD -->
     <main id="dashboard-page" class="page-node pt-40 pb-24 bg-[#0a0c10] min-h-screen text-white">
         <div class="container mx-auto px-6">
-            <div class="flex justify-between items-center mb-10 border-b border-gold/30 pb-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10 border-b border-gold/30 pb-6 gap-4">
                 <h2 class="text-4xl serif italic text-gold">Owner Dashboard</h2>
-                <button onclick="showPage('home')" class="bg-red-900 px-6 py-2 rounded text-xs font-bold">Logout</button>
+                <div class="flex gap-4">
+                    <button onclick="clearDashboard()" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded text-xs font-bold transition">Clear All Orders</button>
+                    <button onclick="showPage('home')" class="bg-gray-700 hover:bg-gray-600 px-6 py-2 rounded text-xs font-bold transition">Logout</button>
+                </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
                 <div class="bg-[#1a1d26] p-6 rounded-lg text-center"><p class="text-gray-400 text-xs mb-2 uppercase">Sales</p><h3 id="stat-sales" class="text-2xl font-bold text-gold">Rs. 0</h3></div>
@@ -175,12 +174,12 @@
         </div>
     </main>
 
-    <!-- PRODUCT DETAIL MODAL (Updated with Thumbnails) -->
+    <!-- MODALS -->
     <div id="product-detail-modal">
         <div class="bg-white max-w-4xl w-full flex flex-col md:flex-row relative rounded-lg overflow-hidden shadow-2xl">
             <button onclick="closeProductDetail()" class="absolute top-5 right-5 text-2xl z-50 text-gray-400 hover:text-black">&times;</button>
             <div class="md:w-1/2 bg-gray-100 p-10 flex flex-col items-center justify-center">
-                <img id="detail-img" src="" class="max-h-[350px] object-contain transition duration-500">
+                <img id="detail-img" src="" class="max-h-[350px] object-contain">
                 <div class="thumb-row" id="detail-thumbs"></div>
             </div>
             <div class="md:w-1/2 p-12 flex flex-col justify-center">
@@ -195,7 +194,6 @@
         </div>
     </div>
 
-    <!-- CART SIDEBAR -->
     <div id="cart-sidebar" class="flex flex-col">
         <div class="p-8 border-b flex justify-between items-center"><h3 class="serif italic text-2xl">My Selection</h3><button onclick="toggleCart()" class="text-3xl">&times;</button></div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
@@ -205,7 +203,6 @@
         </div>
     </div>
 
-    <!-- CHECKOUT MODAL (Updated with EasyPesa Msg) -->
     <div id="checkout-modal">
         <div class="bg-white p-10 max-w-md w-full border-2 border-gold rounded-lg shadow-2xl">
             <h3 class="serif italic text-3xl mb-8 text-center text-gold">Order Details</h3>
@@ -228,17 +225,17 @@
 
     <!-- THANK YOU OVERLAY -->
     <div id="thank-you-overlay">
-        <div class="bg-white p-12 text-center rounded-lg border-t-4 border-gold shadow-2xl max-w-sm">
+        <div class="bg-white p-12 text-center rounded-lg border-t-4 border-gold shadow-2xl max-w-sm relative">
+            <button onclick="document.getElementById('thank-you-overlay').style.display='none'" class="absolute top-4 right-4 text-gray-400 hover:text-black">&times;</button>
             <div class="text-gold text-6xl mb-6"><i class="fa fa-check-circle"></i></div>
-            <h2 class="serif italic text-3xl mb-4">Shukriya ji!💕</h2>
-            <p class="text-gray-500 text-sm leading-relaxed mb-8"> ji bhut bhut ji💕💖. Please proceed to WhatsApp to share details.</p>
+            <h2 class="serif italic text-3xl mb-4">Shukriya ji💕</h2>
+            <p class="text-gray-500 text-sm mb-8"> bhut bhut ji💕💖. Please click below to confirm on WhatsApp.</p>
             <button id="final-wa-btn" class="w-full bg-[#25D366] text-white py-4 rounded-full font-bold flex items-center justify-center gap-3 hover:scale-105 transition">
-                <i class="fab fa-whatsapp text-xl"></i> Open WhatsApp
+                <i class="fab fa-whatsapp text-xl"></i> Proceed to WhatsApp
             </button>
         </div>
     </div>
 
-    <!-- ADMIN LOGIN -->
     <div id="login-modal">
         <div class="bg-white p-10 rounded-lg w-80 text-center border-2 border-gold">
             <h3 class="serif italic text-2xl mb-6">Owner Login</h3>
@@ -247,44 +244,43 @@
         </div>
     </div>
 
-    <!-- FOOTER (Updated Feedback Form) -->
     <footer class="bg-[#050810] text-white pt-20 pb-10">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-20 mb-16 text-center lg:text-left">
                 <div>
                     <h4 class="text-xl font-bold mb-6">Contact Us</h4>
-                    <p class="opacity-60 text-sm">Shop #2, Adyala Road, Rawalpindi, PK</p>
+                    <p class="opacity-60 text-sm">Shop #2, Adyala Road, PK</p>
                     <p class="opacity-60 text-sm mb-4">+92 370 7107422</p>
-                    <div class="flex justify-center lg:justify-start space-x-5 pt-4 text-xl">
-                        <a href="#"><i class="fab fa-facebook hover:text-gold"></i></a>
-                        <a href="#"><i class="fab fa-instagram hover:text-gold"></i></a>
-                        <span onclick="openLogin()" class="cursor-pointer opacity-10 hover:opacity-100 text-[8px] flex items-center">OWNER</span>
+                    <div class="flex justify-center lg:justify-start space-x-5 pt-4">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <span onclick="openLogin()" class="cursor-pointer opacity-10 hover:opacity-100 text-[8px]">OWNER LOGIN</span>
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-xl font-bold mb-6">Quick Links</h4>
+                    <h4 class="text-xl font-bold mb-6 tracking-widest uppercase">Quick Links</h4>
                     <ul class="space-y-3 text-sm opacity-60">
-                        <li onclick="showPage('home')" class="cursor-pointer hover:text-gold">Home</li>
-                        <li onclick="goToShop('fragrances')" class="cursor-pointer hover:text-gold">Our Attars</li>
-                        <li onclick="showPage('about')" class="cursor-pointer hover:text-gold">Our Story</li>
+                        <li onclick="showPage('home')" class="cursor-pointer">Home</li>
+                        <li onclick="goToShop('fragrances')" class="cursor-pointer">Attars</li>
+                        <li onclick="showPage('about')" class="cursor-pointer">Our Story</li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-xl font-bold mb-6 uppercase tracking-widest">Feedback</h4>
+                    <h4 class="text-xl font-bold mb-6">Feedback</h4>
                     <form action="https://formspree.io/f/mkoqdyry" method="POST" class="flex flex-col">
-                        <input type="email" name="email" placeholder="Email Address" class="footer-input" required>
-                        <textarea name="message" placeholder="Your Feedback" rows="2" class="footer-input" required></textarea>
-                        <button type="submit" class="w-full bg-[#ff781f] text-white py-3 font-bold uppercase text-[10px] rounded hover:bg-orange-600 transition shadow-lg">Send Feedback</button>
+                        <input type="email" name="email" placeholder="Email" class="footer-input" required>
+                        <textarea name="message" placeholder="Message" rows="2" class="footer-input" required></textarea>
+                        <button type="submit" class="w-full bg-[#ff781f] text-white py-2 font-bold uppercase text-xs rounded">Send Feedback</button>
                     </form>
                 </div>
             </div>
-            <div class="text-center opacity-30 text-[10px] border-t border-white/10 pt-10 uppercase font-bold tracking-[5px]">&copy; 2026 Muhammad Bin Saqib | Maaz Bin Ayyub</div>
+            <div class="text-center opacity-30 text-[10px] border-t border-white/10 pt-10">&copy; 2026 Muhammad Bin Saqib | Maaz Bin Ayyub</div>
         </div>
     </footer>
 
     <script>
         let cart = []; const WA_NUMBER = "923707107422"; let allProducts = [];
-        let pendingWAMsg = "";
+        let tempOrderData = null; // To hold data before final click
 
         // NAVIGATION
         function toggleMobileMenu() { 
@@ -298,7 +294,7 @@
             handleReveal();
         }
 
-        // CART UI
+        // CART
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
         function updateCartUI() {
             const container = document.getElementById('cart-items');
@@ -309,24 +305,19 @@
                 return `<div class="flex items-center gap-4 bg-gray-50 p-4 border border-gray-100 mb-3 rounded">
                     <img src="${item.img}" class="w-12 h-12 object-cover rounded">
                     <div class="flex-grow text-[11px]"><b>${item.name}</b><br><span class="text-gold">Rs. ${item.price.toLocaleString()} x ${item.qty}</span></div>
-                    <button onclick="removeItem(${index})" class="text-red-400 font-bold px-2">&times;</button>
+                    <button onclick="removeItem(${index})" class="text-red-400 px-2">&times;</button>
                 </div>`;
             }).join('');
             document.getElementById('cart-total').innerText = `Rs. ${total.toLocaleString()}`;
         }
-
         function addToCart(name, price, img, qty = 1) {
             const existing = cart.find(i => i.name === name);
-            if(existing) existing.qty += qty; 
-            else cart.push({ name, price: parseInt(price.replace(/,/g, '')), img, qty });
-            updateCartUI(); 
-            if(window.innerWidth > 1024) document.getElementById('cart-sidebar').classList.add('open');
+            if(existing) existing.qty += qty; else cart.push({ name, price: parseInt(price.replace(/,/g, '')), img, qty });
+            updateCartUI(); if(window.innerWidth > 1024) document.getElementById('cart-sidebar').classList.add('open');
         }
         function removeItem(index) { cart.splice(index, 1); updateCartUI(); }
 
-        // MODALS & MULTI-PICS
-        function togglePayMsg(show) { document.getElementById('easypesa-msg').style.display = show ? 'block' : 'none'; }
-        
+        // PRODUCT DETAIL
         function openProductDetail(idx) {
             const p = allProducts[idx];
             const mainImg = document.getElementById('detail-img');
@@ -335,15 +326,11 @@
             document.getElementById('detail-price').innerText = `Rs. ${p.p}`;
             document.getElementById('detail-category').innerText = p.cat;
             document.getElementById('detail-qty').value = 1;
-            
-            // Render Thumbnails (4 more pics logic)
             const thumbRow = document.getElementById('detail-thumbs');
             thumbRow.innerHTML = '';
-            // For demo: Using same pic 4 times, in real use add p.images array
             for(let i=0; i<5; i++) {
                 const imgNode = document.createElement('img');
-                imgNode.src = p.i; 
-                imgNode.className = `thumb-box ${i===0 ? 'active-thumb' : ''}`;
+                imgNode.src = p.i; imgNode.className = `thumb-box ${i===0 ? 'active-thumb' : ''}`;
                 imgNode.onclick = function() {
                     mainImg.src = this.src;
                     document.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active-thumb'));
@@ -351,19 +338,16 @@
                 };
                 thumbRow.appendChild(imgNode);
             }
-
-            document.getElementById('detail-add-btn').onclick = () => { 
-                addToCart(p.n, p.p, p.i, parseInt(document.getElementById('detail-qty').value)); 
-                closeProductDetail(); 
-            };
+            document.getElementById('detail-add-btn').onclick = () => { addToCart(p.n, p.p, p.i, parseInt(document.getElementById('detail-qty').value)); closeProductDetail(); };
             document.getElementById('product-detail-modal').style.display = 'flex';
         }
-
         function closeProductDetail() { document.getElementById('product-detail-modal').style.display = 'none'; }
         function updateDetailQty(v) { let q = parseInt(document.getElementById('detail-qty').value) + v; if(q>=1) document.getElementById('detail-qty').value = q; }
+        
+        // CHECKOUT & LOGIC (Updated to save only on final click)
+        function togglePayMsg(show) { document.getElementById('easypesa-msg').style.display = show ? 'block' : 'none'; }
         function openCheckout() { if(cart.length > 0) document.getElementById('checkout-modal').style.display = 'flex'; }
 
-        // FINAL SUBMISSION & THANK YOU
         function handleFinalSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('cust-name').value;
@@ -374,25 +358,28 @@
             let total = 0, itemsSummary = "";
             cart.forEach(i => { total += (i.price * i.qty); itemsSummary += `${i.name} (x${i.qty}), `; });
 
-            saveOrderToHistory({ date: new Date().toLocaleDateString(), name, items: itemsSummary, amount: total, status: 'Pending' });
+            // Hold data in memory, don't save to history yet
+            tempOrderData = { date: new Date().toLocaleDateString(), name, items: itemsSummary, amount: total, status: 'Pending' };
 
-            pendingWAMsg = `*MBS ORDER*\n Customer: ${name}\n City: ${city}\n Address: ${address}\n Payment: ${payment}\n Total: Rs. ${total.toLocaleString()}`;
+            const waMsg = `*MBS ORDER*\n👤 Customer: ${name}\n🏙️ City: ${city}\n🏠 Address: ${address}\n💳 Payment: ${payment}\n💰 Total: Rs. ${total.toLocaleString()}`;
             
-            // Show Thank You Screen instead of direct redirect
             document.getElementById('checkout-modal').style.display = 'none';
             document.getElementById('thank-you-overlay').style.display = 'flex';
 
             document.getElementById('final-wa-btn').onclick = () => {
-                window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pendingWAMsg)}`, '_blank');
+                // SAVE ONLY WHEN CLICKED
+                saveOrderToHistory(tempOrderData);
+                window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 document.getElementById('thank-you-overlay').style.display = 'none';
                 cart = []; updateCartUI(); showPage('home');
+                tempOrderData = null;
             };
         }
 
-        // DASHBOARD LOGIC
+        // DASHBOARD
         function openLogin() { document.getElementById('login-modal').style.display = 'flex'; }
-        function checkLogin() { if(document.getElementById('admin-pass').value === "mbs123") { document.getElementById('login-modal').style.display = 'none'; showPage('dashboard'); renderDashboard(); } else { alert("Wrong Pass"); } }
-        function saveOrderToHistory(data) { let h = JSON.parse(localStorage.getItem('mbs_h')) || []; h.unshift(data); localStorage.setItem('mbs_h', JSON.stringify(h)); }
+        function checkLogin() { if(document.getElementById('admin-pass').value === "mbs123") { document.getElementById('login-modal').style.display = 'none'; showPage('dashboard'); renderDashboard(); } else { alert("Incorrect"); } }
+        function saveOrderToHistory(data) { if(!data) return; let h = JSON.parse(localStorage.getItem('mbs_h')) || []; h.unshift(data); localStorage.setItem('mbs_h', JSON.stringify(h)); }
         function renderDashboard() {
             const h = JSON.parse(localStorage.getItem('mbs_h')) || [];
             let s = 0, p = 0, d = 0;
@@ -406,8 +393,9 @@
             document.getElementById('stat-dispatched').innerText = d;
         }
         function toggleStatus(i) { let h = JSON.parse(localStorage.getItem('mbs_h')); h[i].status = h[i].status==='Pending'?'Dispatched':'Pending'; localStorage.setItem('mbs_h', JSON.stringify(h)); renderDashboard(); }
+        function clearDashboard() { if(confirm("Clear all orders?")) { localStorage.removeItem('mbs_h'); renderDashboard(); } }
 
-        // PRODUCT GENERATOR
+        // REVEAL & GENERATOR
         function goToShop(sect) { showPage('shop'); setTimeout(() => { const el = document.getElementById(sect + '-sect'); if(el) window.scrollTo({top: el.offsetTop - 120, behavior: 'smooth'}); }, 200); }
         function generate() {
             const sections = [
