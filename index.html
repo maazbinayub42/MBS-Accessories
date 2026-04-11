@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBS Muhammad Bin Saqib | Fragnance And Faith Collection</title>
-    <meta name="description" content="MBS Accessories - Premium collection of Islamic accessories, Attars, Imamaas, Topis, Salah Rugs, and Umrah Gift Boxes.">
-    <meta name="google-site-verification" content="y5QSKZAHDSxdsF_Wrc80O1Xh1wIwCftNlx1OyALgu-k" />
-    <link rel="icon" type="image/png" href="logo.png">
+    <!-- Primary Meta Tags -->
+<meta name="title" content="MBS Accessories | Fragrance And Faith Collection">
+<meta name="description" content="MBS Accessories offers a premium collection of authentic Attars, handcrafted Imamas, elegant Kufis, luxury Salah Rugs, and exclusive Umrah Gift Boxes. Experience spiritual luxury with Muhammad Bin Saqib.">
+<meta name="keywords" content="MBS Accessories, Premium Attars, Islamic Accessories Pakistan, Handcrafted Imama, Luxury Salah Rugs, Umrah Gift Boxes, Kufi Topi, Muhammad Bin Saqib">
+
+<!-- Open Graph / Facebook / WhatsApp (Jab link share karen to card ban kar aaye) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mbsaccessories.vercel.app/">
+<meta property="og:title" content="MBS Accessories | Fragrance And Faith Collection">
+<meta property="og:description" content="Authentic Attars, Handcrafted Imamas, and Luxury Islamic Accessories. Shop the Faith collection now.">
+<meta property="og:image" content="hero.jpg"> <!-- Link to your main branding image -->
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://mbsaccessories.vercel.app/">
+<meta property="twitter:title" content="MBS Accessories | Fragrance And Faith Collection">
+<meta property="twitter:description" content="Authentic Attars, Handcrafted Imamas, and Luxury Islamic Accessories.">
+<meta property="twitter:image" content="hero.jpg">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,7 +35,7 @@
         :root { 
             --gold: #C5A059; --bg: #fdfaf7; --text: #1A1A1A; --card: #FFFFFF;
             --border: rgba(197, 160, 89, 0.2); --nav-bg: rgba(255, 255, 255, 0.98); 
-            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); overflow-x: hidden; }
@@ -46,7 +60,7 @@
             background-size: cover; background-position: center; background-attachment: fixed;
         }
 
-        /* IMAGE ZOOM FEATURE */
+        /* IMAGE ZOOM */
         .zoom-container { overflow: hidden; cursor: zoom-in; border-radius: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; height: 450px; position: relative; border: 1px solid #eee; }
         .zoom-image { transition: transform 0.5s ease-out; width: 100%; height: 100%; object-fit: contain; }
         .zoom-container:hover .zoom-image { transform: scale(1.8); }
@@ -68,10 +82,15 @@
         .page-node { display: none; }
         .page-active { display: block; }
         
+        /* MOBILE VIEW MODAL FIXES */
         @media (max-width: 768px) { 
-            .modal-inner { padding: 20px; overflow-y: auto; max-height: 95vh; } 
-            .zoom-container { height: 300px; }
-            .v-thumb-col { flex-direction: row; overflow-x: auto; padding-bottom: 10px; }
+            .modal-inner { padding: 15px; overflow-y: auto; max-height: 92vh; width: 95%; } 
+            .zoom-container { height: 280px !important; order: 1; }
+            .v-thumb-col { flex-direction: row !important; overflow-x: auto; padding: 10px 0; order: 2; width: 100%; }
+            .v-thumb { width: 60px; height: 60px; flex-shrink: 0; }
+            .modal-inner > div { flex-direction: column !important; }
+            .md\:w-\[400px\] { width: 100% !important; order: 3; }
+            .absolute.top-5.right-5 { top: 10px; right: 10px; font-size: 20px; }
         }
     </style>
 </head>
@@ -85,10 +104,8 @@
             <nav class="hidden lg:flex space-x-6 items-center">
                 <span onclick="showPage('home')" class="nav-link">Home</span>
                 <span onclick="goToShop('fragrances')" class="nav-link">Attars</span>
-                <span onclick="goToShop('imamaas')" class="nav-link">Imamas</span>
-                <span onclick="goToShop('topis')" class="nav-link">Kufis</span>
+                <span onclick="goToShop('topis')" class="nav-link">Topis</span>
                 <span onclick="goToShop('rugs')" class="nav-link">Rugs</span>
-                <span onclick="goToShop('boxes')" class="nav-link">Umrah Boxes</span>
                 <span onclick="showPage('contact')" class="nav-link">Contact</span>
             </nav>
             <button onclick="toggleCart()" class="relative text-black">
@@ -99,46 +116,42 @@
     </header>
 
     <div id="mobile-menu" class="fixed top-0 left-[-100%] w-[80%] h-full bg-white z-[6000] transition-all p-10 shadow-2xl">
-        <div class="flex justify-between items-center mb-10 text-black"><img src="logo.png" class="h-8 text-black"><button onclick="toggleMobileMenu()" class="text-3xl">&times;</button></div>
+        <div class="flex justify-between items-center mb-10 text-black"><img src="logo.png" class="h-8"><button onclick="toggleMobileMenu()" class="text-3xl">&times;</button></div>
         <div class="flex flex-col space-y-6 uppercase text-xs font-bold text-black">
             <span onclick="showPage('home'); toggleMobileMenu()">Home</span>
             <span onclick="goToShop('fragrances'); toggleMobileMenu()">Attars</span>
-            <span onclick="goToShop('imamaas'); toggleMobileMenu()">Imamas</span>
-            <span onclick="goToShop('boxes'); toggleMobileMenu()">Umrah Boxes</span>
+            <span onclick="goToShop('topis'); toggleMobileMenu()">Kufis & Topis</span>
+            <span onclick="goToShop('rugs'); toggleMobileMenu()">Salah Rugs</span>
             <span onclick="showPage('contact'); toggleMobileMenu()">Contact Us</span>
         </div>
     </div>
 
-    <!-- MAIN HOME PAGE -->
+    <!-- MAIN PAGES -->
     <main id="home-page" class="page-node page-active">
         <section class="hero-banner h-[100vh] flex flex-col items-center justify-center text-center px-6 relative">
-            <h2 class="text-6xl md:text-9xl mb-6 serif italic text-white reveal drop-shadow-2xl text-shadow-lg">Faith And <br> <span class="text-gold"> Fragrance</span></h2>
+            <h2 class="text-6xl md:text-9xl mb-6 serif italic text-white reveal drop-shadow-2xl">Faith And <br> <span class="text-gold"> Fragrance</span></h2>
             <button onclick="goToShop('fragrances')" class="border-2 border-white text-white font-bold px-16 py-5 hover:bg-white hover:text-black transition uppercase text-xs reveal">Explore Catalog</button>
         </section>
     </main>
 
-    <!-- SHOP PAGE -->
     <main id="shop-page" class="page-node pt-40 pb-24"><div class="container mx-auto px-6" id="shop-content"></div></main>
 
-    <!-- CONTACT PAGE -->
     <main id="contact-page" class="page-node pt-40 pb-24">
-        <div class="container mx-auto px-6 max-w-6xl reveal">
-            <h2 class="text-5xl serif italic text-gold text-center mb-20">Contact Us</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 text-black">
+        <div class="container mx-auto px-6 max-w-6xl reveal text-black text-center">
+            <h2 class="text-5xl serif italic text-gold mb-20">Contact Us</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 text-left">
                 <div class="space-y-10">
                     <h3 class="text-2xl font-bold uppercase tracking-widest">Get In Touch</h3>
-                    <p class="opacity-70 leading-loose">Have any questions about our premium collections? We are here to help.</p>
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-5 text-xl font-bold"><i class="fa fa-whatsapp text-green-500 text-2xl"></i> +92 370 7107422</div>
-                        <div class="flex items-center gap-5 opacity-80 font-semibold"><i class="fa fa-envelope text-gold"></i> mbsislamicaccessories@gmail.com</div>
+                    <div class="space-y-6 font-semibold">
+                        <p><i class="fa fa-whatsapp text-green-500 text-xl mr-3"></i> +92 370 7107422</p>
+                        <p><i class="fa fa-envelope text-gold mr-3"></i> mbsislamicaccessories@gmail.com</p>
                     </div>
                 </div>
-                <div class="bg-white p-10 shadow-2xl border rounded">
+                <div class="bg-white p-8 shadow-xl border rounded">
                     <form action="https://formspree.io/f/mkoqdyry" method="POST" class="space-y-6">
-                        <input type="text" name="name" placeholder="Full Name" class="luxury-input" required>
-                        <input type="email" name="email" placeholder="Email Address" class="luxury-input" required>
-                        <textarea name="message" rows="4" placeholder="Your Message" class="luxury-input" required></textarea>
-                        <button type="submit" class="w-full bg-black text-white py-4 font-bold uppercase text-xs hover:bg-gold transition">Send Message</button>
+                        <input type="text" name="name" placeholder="Name" class="w-full border-b p-3 outline-none" required>
+                        <textarea name="message" rows="4" placeholder="Message" class="w-full border-b p-3 outline-none" required></textarea>
+                        <button type="submit" class="w-full bg-black text-white py-4 font-bold uppercase text-xs hover:bg-gold transition">Send</button>
                     </form>
                 </div>
             </div>
@@ -155,10 +168,14 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10 text-center">
                 <div class="bg-[#1a1d26] p-6 rounded-lg border border-gold/10"><p class="text-gray-400 text-xs mb-1 uppercase">Revenue</p><h3 id="stat-sales" class="text-2xl font-bold text-gold">Rs. 0</h3></div>
                 <div class="bg-[#1a1d26] p-6 rounded-lg border border-gold/10"><p class="text-gray-400 text-xs mb-1 uppercase">Orders</p><h3 id="stat-orders" class="text-2xl font-bold">0</h3></div>
-                <div class="bg-[#1a1d26] p-6 rounded-lg border border-gold/10"><p class="text-gray-400 text-xs mb-1 uppercase text-yellow-500">Pending</p><h3 id="stat-pending" class="text-2xl font-bold text-yellow-500">0</h3></div>
-                <div class="bg-[#1a1d26] p-6 rounded-lg border border-gold/10"><p class="text-gray-400 text-xs mb-1 uppercase text-green-400">Sent</p><h3 id="stat-dispatched" class="text-2xl font-bold text-green-400">0</h3></div>
+                <div class="bg-[#1a1d26] p-6 rounded-lg border border-gold/10"><p class="text-gray-400 text-xs mb-1 text-yellow-500">PENDING</p><h3 id="stat-pending" class="text-2xl font-bold text-yellow-500">0</h3></div>
+                <div class="bg-[#1a1d26] p-6 rounded-lg border border-gold/10"><p class="text-gray-400 text-xs mb-1 text-green-400">SENT</p><h3 id="stat-dispatched" class="text-2xl font-bold text-green-400">0</h3></div>
             </div>
-            <div class="bg-[#1a1d26] p-8 rounded-lg mb-10"><canvas id="salesChart" height="100"></canvas></div>
+            <!-- GRAPH CONTAINER -->
+            <div class="bg-[#1a1d26] p-8 rounded-lg mb-10 border border-gold/10">
+                <h4 class="text-xs uppercase font-bold text-gray-500 mb-5">Sales Graph</h4>
+                <canvas id="salesChart" style="max-height: 300px;"></canvas>
+            </div>
             <div class="bg-[#1a1d26] p-6 rounded-lg overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="text-gray-500 uppercase border-b border-white/5"><th class="py-4">Date</th><th>Customer</th><th>Items</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="dash-order-rows"></tbody></table></div>
         </div>
     </main>
@@ -168,43 +185,25 @@
         <div class="modal-inner shadow-2xl">
             <button onclick="closeProductDetail()" class="absolute top-5 right-5 text-2xl text-gray-400 hover:text-black z-50">&times;</button>
             <div class="flex flex-col md:flex-row gap-12">
-                <!-- Vertical Thumbs -->
                 <div class="v-thumb-col flex flex-col gap-3" id="detail-thumbs"></div>
-                
-                <!-- Zoom Box -->
                 <div class="flex-grow zoom-container" id="zoom-box">
                     <img id="detail-img" src="" class="zoom-image">
                 </div>
-
-                <!-- Info Side -->
                 <div class="md:w-[400px] flex flex-col">
-                    <h2 id="detail-name" class="text-2xl font-bold mb-4 uppercase tracking-tight"></h2>
-                    <div class="flex items-center gap-4 mb-4">
+                    <h2 id="detail-name" class="text-3xl font-bold mb-4 uppercase tracking-tight"></h2>
+                    <div class="flex items-center gap-4 mb-8">
                         <span id="detail-price" class="text-2xl font-bold text-black"></span>
                         <span id="detail-old-price" class="text-lg text-gray-400 line-through"></span>
-                        <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded">SAVE 15%</span>
                     </div>
-
-                    <div id="variant-area">
-                        <!-- Dropdowns like ML, Color, Size injected via JS -->
-                    </div>
-
+                    <div id="variant-area"></div>
                     <div class="mb-8">
                         <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block tracking-widest">Quantity</label>
-                        <div class="flex items-center border w-fit">
-                            <button onclick="modQty(-1)" class="px-5 py-2 font-bold bg-gray-50">-</button>
-                            <input type="text" id="modal-qty" value="1" class="w-12 text-center font-bold" readonly>
-                            <button onclick="modQty(1)" class="px-5 py-2 font-bold bg-gray-50">+</button>
-                        </div>
+                        <div class="flex items-center border w-fit"><button onclick="modQty(-1)" class="px-5 py-2 font-bold bg-gray-50">-</button><input type="text" id="modal-qty" value="1" class="w-12 text-center font-bold" readonly><button onclick="modQty(1)" class="px-5 py-2 font-bold bg-gray-50">+</button></div>
                     </div>
-
-                    <button onclick="handleBundleAdd()" class="w-full bg-black text-white py-5 font-bold uppercase text-[11px] hover:bg-gold transition shadow-xl">
-                        + Add to bundle
-                    </button>
-
-                    <div class="mt-10 border-t pt-6 space-y-3 opacity-70">
-                        <p class="text-[11px] font-bold"><i class="fa fa-truck text-gold mr-2"></i> Fast Delivery Pakistan (Leopard)</p>
-                        <p class="text-[11px] font-bold"><i class="fa fa-shield-alt text-gold mr-2"></i> Safe & Secure Checkout</p>
+                    <button onclick="handleBundleAdd()" class="w-full bg-black text-white py-5 font-bold uppercase text-[11px] hover:bg-gold transition shadow-xl">+ Add to bundle</button>
+                    <div class="mt-8 opacity-60 text-[11px] font-bold space-y-2">
+                        <p><i class="fa fa-truck mr-2"></i> Fast Delivery (Leopard)</p>
+                        <p><i class="fa fa-shield-alt mr-2"></i> Secure Payment</p>
                     </div>
                 </div>
             </div>
@@ -213,25 +212,23 @@
 
     <!-- CART SIDEBAR -->
     <div id="cart-sidebar" class="flex flex-col text-black">
-        <div class="p-8 border-b flex justify-between items-center"><b>Your Bag</b><button onclick="toggleCart()" class="text-3xl">&times;</button></div>
+        <div class="p-8 border-b flex justify-between items-center text-black"><b>My Bag</b><button onclick="toggleCart()" class="text-3xl">&times;</button></div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
-        <div class="p-8 border-t bg-gray-50">
-            <div class="flex justify-between mb-6"><b>Subtotal</b><span id="cart-total" class="text-gold font-bold text-xl">Rs. 0</span></div>
-            <button onclick="openCheckout()" class="w-full bg-black text-white py-5 font-bold uppercase text-xs hover:bg-gold transition">Proceed to Checkout</button>
-        </div>
+        <div class="p-8 border-t"><div class="flex justify-between mb-6"><b>Subtotal</b><span id="cart-total" class="text-gold font-bold text-xl">Rs. 0</span></div><button onclick="openCheckout()" class="w-full bg-black text-white py-5 font-bold uppercase text-xs hover:bg-gold transition">Checkout</button></div>
     </div>
 
+    <!-- CHECKOUT MODAL -->
     <div id="checkout-modal">
-        <div class="bg-white p-10 max-w-md w-full border-2 border-gold text-black shadow-2xl rounded">
+        <div class="bg-white p-10 max-w-md w-full border-2 border-gold text-black shadow-2xl">
             <h3 class="serif italic text-3xl mb-6 text-center text-gold">Checkout</h3>
             <form onsubmit="handleFinalSubmit(event)">
                 <input type="text" id="cust-name" placeholder="Full Name" class="luxury-input" required>
                 <input type="text" id="cust-city" placeholder="City" class="luxury-input" oninput="calcDelivery()" required>
                 <textarea id="cust-address" placeholder="Shipping Address" class="luxury-input" rows="2" required></textarea>
-                <div class="flex justify-between text-xs font-bold mb-4 text-gold uppercase">Leopard Delivery: <span id="delivery-info">Rs. 0</span></div>
-                <div class="flex justify-between text-lg font-bold mb-8 border-y py-3 uppercase">Grand Total: <span id="grand-total-display">Rs. 0</span></div>
+                <div class="flex justify-between text-xs font-bold mb-4 uppercase">Leopard Delivery: <span id="delivery-info">Rs. 0</span></div>
+                <div class="flex justify-between text-lg font-bold mb-8 border-y py-3 uppercase">Total: <span id="grand-total-display">Rs. 0</span></div>
                 <div class="mb-8"><label><input type="radio" name="payment" value="COD" checked onclick="togglePayMsg(false)"> COD</label><label class="ml-10"><input type="radio" name="payment" value="EasyPesa" onclick="togglePayMsg(true)"> EasyPesa</label></div>
-                <button type="submit" class="w-full bg-black text-white py-4 font-bold uppercase text-xs">Complete Order</button>
+                <button type="submit" class="w-full bg-black text-white py-4 font-bold uppercase text-xs shadow-xl">Complete Order</button>
             </form>
         </div>
     </div>
@@ -240,29 +237,25 @@
     <div id="thank-you-overlay">
         <div class="bg-white p-12 text-center rounded shadow-2xl max-w-sm text-black">
             <div class="text-gold text-7xl mb-6"><i class="fa fa-check-circle"></i></div>
-            <h2 class="serif italic text-3xl mb-4">Shukriya Bhai!💕</h2>
-            <p class="text-gray-400 text-xs mb-10 leading-relaxed">oh ji shukriya ji bhut bhut ji💕💖. Please confirm on WhatsApp for processing.</p>
-            <button id="final-wa-btn" class="w-full bg-[#25D366] text-white py-4 rounded-full font-bold flex items-center justify-center gap-3">Open WhatsApp</button>
+            <h2 class="serif italic text-3xl mb-4">Shukriya!</h2>
+            <button id="final-wa-btn" class="w-full bg-[#25D366] text-white py-4 rounded-full font-bold">Open WhatsApp</button>
         </div>
     </div>
 
-    <!-- BLACK FOOTER -->
-    <footer class="bg-black text-white py-20 px-6 font-sans">
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-20 px-6">
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
-            <div><h4 class="font-bold text-gold uppercase mb-8 tracking-widest">Support</h4><ul class="space-y-4 text-xs opacity-50 uppercase tracking-widest"><li>Privacy Policy</li><li>Shipping & Returns</li><li>Terms</li></ul></div>
-            <div><h4 class="font-bold text-gold uppercase mb-8 tracking-widest text-center">MBS Accessories</h4><p class="text-[10px] text-center opacity-40 uppercase tracking-[4px]">Pakistan's Premium Brand Since 2026</p><div class="flex justify-center gap-6 text-xl mt-10"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><span onclick="openLogin()" class="opacity-10 text-[8px] cursor-pointer">ADMIN</span></div></div>
-            <div><h4 class="font-bold text-gold uppercase mb-8 tracking-widest text-right">Newsletter</h4><form action="https://formspree.io/f/mkoqdyry" method="POST" class="flex flex-col gap-3"><input type="email" placeholder="EMAIL" class="footer-input text-right" required><button type="submit" class="bg-gold text-black py-2 font-bold uppercase text-[10px] ml-auto px-10">Join</button></form></div>
+            <div><h4 class="font-bold text-gold mb-8 uppercase">MBS Accessories</h4><p class="text-xs opacity-50 mb-10">Shop #2, Adyala Road, Rawalpindi, PK</p><div class="flex gap-6 text-xl"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><span onclick="openLogin()" class="opacity-10 text-[8px] cursor-pointer">ADMIN</span></div></div>
+            <div class="text-center"><h4 class="font-bold text-gold mb-8 uppercase">Support</h4><p onclick="showPage('contact')" class="text-xs opacity-50 cursor-pointer">Contact Us</p></div>
+            <div class="text-right"><h4 class="font-bold text-gold mb-8 uppercase">Newsletter</h4><form action="https://formspree.io/f/mkoqdyry" method="POST" class="flex flex-col gap-3"><input type="email" placeholder="EMAIL" class="footer-input text-right" required><button type="submit" class="bg-gold text-black py-2 font-bold uppercase text-[10px] ml-auto px-10">Join</button></form></div>
         </div>
     </footer>
 
-    <!-- FLOAT WA -->
     <a href="https://wa.me/923707107422" target="_blank" class="wa-float shadow-xl"><i class="fab fa-whatsapp"></i></a>
 
-    <!-- LOGIN MODAL -->
-    <div id="login-modal"><div class="bg-white p-10 rounded border-2 border-gold text-black w-80 text-center"><h3 class="serif italic text-2xl mb-6">Access</h3><input type="password" id="admin-pass" placeholder="PASSWORD" class="luxury-input text-center"><button onclick="checkLogin()" class="w-full bg-black text-white py-3 font-bold mt-4">LOGIN</button></div></div>
+    <div id="login-modal"><div class="bg-white p-10 rounded border-2 border-gold text-black w-80 text-center"><h3 class="serif italic text-2xl mb-6">Owner</h3><input type="password" id="admin-pass" placeholder="PASSWORD" class="luxury-input text-center"><button onclick="checkLogin()" class="w-full bg-black text-white py-3 font-bold mt-4">LOGIN</button></div></div>
 
     <script>
-        // --- FIREBASE CONFIG ---
         const firebaseConfig = { apiKey: "AIzaSyDzdbJiNDHCErR2ZlPZBq4dRbcfTY3COH4", authDomain: "mbs-perfumes.firebaseapp.com", projectId: "mbs-perfumes", storageBucket: "mbs-perfumes.firebasestorage.app", messagingSenderId: "296171207040", appId: "1:296171207040:web:e7a8fa7ec4672a933f2965" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
@@ -294,7 +287,7 @@
             let total = 0;
             document.getElementById('cart-items').innerHTML = cart.map((item, idx) => {
                 total += (item.price * item.qty);
-                return `<div class="flex gap-4 border-b pb-3 mb-3"><img src="${item.img}" class="w-12 h-12 object-cover rounded shadow"><div class="flex-grow"><b>${item.name}</b><br><span class="text-gold text-[9px] uppercase font-bold">Rs. ${item.price.toLocaleString()} x ${item.qty} ${item.options?'| '+item.options:''}</span></div><button onclick="removeItem(${idx})" class="text-red-500 font-bold px-2">X</button></div>`;
+                return `<div class="flex gap-4 border-b pb-3 mb-3 text-black"><img src="${item.img}" class="w-10 h-10 object-cover rounded shadow"><div class="flex-grow"><b>${item.name}</b><br>Rs. ${item.price.toLocaleString()} x ${item.qty} [${item.options}]</div><button onclick="removeItem(${idx})" class="text-red-500 font-bold">X</button></div>`;
             }).join('');
             document.getElementById('cart-total').innerText = `Rs. ${total.toLocaleString()}`;
             updateGrandTotal();
@@ -309,33 +302,25 @@
             const variantArea = document.getElementById('variant-area');
             variantArea.innerHTML = '';
 
-            // VARIANTS LOGIC
             if (p.cat === 'Authentic Attars') {
                 variantArea.innerHTML = `<label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block tracking-widest">Select ML</label>
-                <select id="v-opt1" class="luxury-select" onchange="updateVariantPrice()">
-                    <option value="1400" data-l="3ml">3ml - Rs. 1,400</option>
-                    <option value="2600" data-l="6ml">6ml - Rs. 2,600</option>
-                    <option value="4800" data-l="12ml">12ml - Rs. 4,800</option>
-                    <option value="6000" data-l="15ml">15ml - Rs. 6,000</option>
+                <select id="ml-select" class="luxury-select" onchange="updateVariantPrice()">
+                    <option value="1400" data-label="3ml">3ml - Rs. 1,400</option>
+                    <option value="2600" data-label="6ml">6ml - Rs. 2,600</option>
+                    <option value="4800" data-label="12ml">12ml - Rs. 4,800</option>
+                    <option value="6000" data-label="15ml">15ml - Rs. 6,000</option>
                 </select>`;
             } else if (p.cat === 'Kufis & Topis') {
                 variantArea.innerHTML = `<label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block tracking-widest">Color</label>
-                <select id="v-color" class="luxury-select"><option>Black</option><option>White</option><option>Brown</option></select>
+                <select id="color-select" class="luxury-select"><option>Black</option><option>White</option><option>Brown</option></select>
                 <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block tracking-widest">Size</label>
-                <select id="v-opt1" class="luxury-select"><option>21</option><option>21.5</option><option>22</option><option>22.5</option><option>23</option></select>`;
-            } else if (p.cat === 'Imama Shareef') {
-                variantArea.innerHTML = `<label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block tracking-widest">Select Color</label>
-                <select id="v-color" class="luxury-select"><option>Black</option><option>Green</option><option>White</option><option>Red</option></select>`;
+                <select id="size-select" class="luxury-select"><option>21</option><option>21.5</option><option>22</option><option>22.5</option><option>23</option></select>`;
             }
-
             updateVariantPrice();
 
-            // 4 MORE IMAGES THUMBS LOGIC
-            const thRow = document.getElementById('detail-thumbs');
-            thRow.innerHTML = '';
+            const thRow = document.getElementById('detail-thumbs'); thRow.innerHTML = '';
             for(let i=0; i<5; i++) {
-                const imgNode = document.createElement('img');
-                imgNode.src = p.i; imgNode.className = `v-thumb ${i===0?'active':''}`;
+                const imgNode = document.createElement('img'); imgNode.src = p.i; imgNode.className = `v-thumb ${i===0?'active':''}`;
                 imgNode.onclick = function() { document.getElementById('detail-img').src = this.src; document.querySelectorAll('.v-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active'); };
                 thRow.appendChild(imgNode);
             }
@@ -344,29 +329,27 @@
 
         function updateVariantPrice() {
             const p = allProducts[currIdx];
-            const opt = document.getElementById('v-opt1');
+            const mlSel = document.getElementById('ml-select');
             let price = p.p;
-            if(opt && p.cat === 'Authentic Attars') price = opt.value;
+            if(mlSel) price = mlSel.value;
             document.getElementById('detail-price').innerText = `Rs. ${parseInt(price).toLocaleString()}`;
-            document.getElementById('detail-old-price').innerText = `Rs. ${(parseInt(price) + 500).toLocaleString()}`;
+            document.getElementById('detail-old-price').innerText = `Rs. ${(parseInt(price) + 400).toLocaleString()}`;
         }
 
         function handleBundleAdd() {
             const p = allProducts[currIdx];
             const qty = parseInt(document.getElementById('modal-qty').value);
-            const v1 = document.getElementById('v-opt1');
-            const vc = document.getElementById('v-color');
-            
-            let price = p.p;
-            let label = "";
-
-            if(p.cat === 'Authentic Attars') { price = v1.value; label = v1.options[v1.selectedIndex].getAttribute('data-l'); }
-            else if(p.cat === 'Kufis & Topis') { label = `Size: ${v1.value}, Color: ${vc.value}`; }
-            else if(p.cat === 'Imama Shareef') { label = `Color: ${vc.value}`; }
-
-            cart.push({ name: p.n, price: parseInt(price), img: p.i, qty, options: label });
+            let price = p.p; let options = "";
+            if(p.cat === 'Authentic Attars') { const sel = document.getElementById('ml-select'); price = sel.value; options = sel.options[sel.selectedIndex].getAttribute('data-label'); }
+            else if(p.cat === 'Kufis & Topis') { options = `Color: ${document.getElementById('color-select').value}, Size: ${document.getElementById('size-select').value}`; }
+            cart.push({ name: p.n, price: parseInt(price), img: p.i, qty, options });
             updateCartUI(); document.getElementById('product-detail-modal').style.display = 'none'; toggleCart();
         }
+
+        function closeProductDetail() { document.getElementById('product-detail-modal').style.display = 'none'; }
+        function openCheckout() { if(cart.length > 0) document.getElementById('checkout-modal').style.display = 'flex'; }
+        function togglePayMsg(s) { document.getElementById('easypesa-msg').style.display = s ? 'block' : 'none'; }
+        function removeItem(i) { cart.splice(i, 1); updateCartUI(); }
 
         async function handleFinalSubmit(e) {
             e.preventDefault();
@@ -374,12 +357,11 @@
             const city = document.getElementById('cust-city').value;
             const addr = document.getElementById('cust-address').value;
             const pay = document.querySelector('input[name="payment"]:checked').value;
-            let total = 0, waL = "", dashL = "";
-            cart.forEach(i => { total += (i.price * i.qty); waL += `▪️ ${i.name} (x${i.qty}) [${i.options}]\n`; dashL += `${i.name} x${i.qty}, `; });
-            const grand = total + deliveryCharge;
-            const orderData = { date: new Date().toLocaleString(), name, items: dashL, amount: grand, status: 'Pending', timestamp: firebase.firestore.FieldValue.serverTimestamp() };
-            const waMsg = `*MBS ORDER*\n\n👤 *Customer:* ${name}\n🏙️ *City:* ${city}\n🏠 *Address:* ${addr}\n\n📦 *Items:*\n${waL}🚚 *Leopard:* Rs. ${deliveryCharge}\n💰 *TOTAL: Rs. ${grand.toLocaleString()}*\n💳 *Payment:* ${pay}`;
-            
+            let total = 0, itemsWa = "", itemsDash = "";
+            cart.forEach(i => { total += (i.price * i.qty); itemsWa += `▪️ ${i.name} (x${i.qty}) [${i.options}]\n`; itemsDash += `${i.name} x${i.qty}, `; });
+            const grandTotal = total + deliveryCharge;
+            const orderData = { date: new Date().toLocaleString(), name, items: itemsDash, amount: grandTotal, status: 'Pending', timestamp: firebase.firestore.FieldValue.serverTimestamp() };
+            const waMsg = `*MBS ORDER*\n\n👤 *Customer:* ${name}\n🏙️ *City:* ${city}\n🏠 *Address:* ${addr}\n\n📦 *Items:*\n${itemsWa}🚚 *Delivery:* Rs. ${deliveryCharge}\n💰 *TOTAL: Rs. ${grandTotal.toLocaleString()}*\n💳 *Payment:* ${pay}`;
             document.getElementById('checkout-modal').style.display = 'none';
             document.getElementById('thank-you-overlay').style.display = 'flex';
             document.getElementById('final-wa-btn').onclick = async () => {
@@ -392,37 +374,18 @@
 
         function generate() {
             const sections = [
-                { id: 'fragrances', title: 'Authentic Attars', items: [
-                    {n:"Musk Royal", p:"1400", i:"hero.jpg"}, {n:"Oud Farah", p:"2500", i:"hero.jpg"}, {n:"Amber Rose", p:"1800", i:"hero.jpg"}, {n:"White Musk", p:"1200", i:"hero.jpg"}
-                ]},
-                { id: 'imamaas', title: 'Imama Shareef', items: [
-                    {n:"Cotton Imama", p:"1800", i:"hero.jpg"}, {n:"Premium Silk Imama", p:"4500", i:"hero.jpg"}, {n:"Handmade Imama", p:"3500", i:"hero.jpg"}, {n:"Traditional Set", p:"6000", i:"hero.jpg"}
-                ]},
-                { id: 'topis', title: 'Kufis & Topis', items: [
-                    {n:"Classic Koofi", p:"960", i:"hero.jpg"}, {n:"Turkish Fes", p:"2000", i:"hero.jpg"}, {n:"Indonesian Cap", p:"1500", i:"hero.jpg"}, {n:"Hand-woven Topi", p:"3500", i:"hero.jpg"}
-                ]},
-                { id: 'rugs', title: 'Salah Rugs', items: [
-                    {n:"Velvet Comfort", p:"4500", i:"hero.jpg"}, {n:"Turkish Floral", p:"6500", i:"hero.jpg"}, {n:"Memory Foam Mat", p:"8500", i:"hero.jpg"}, {n:"Luxury Sultani", p:"12000", i:"hero.jpg"}
-                ]},
-                { id: 'tasbeehs', title: 'Exclusive Tasbeehs', items: [
-                    {n:"Agate Stone", p:"1500", i:"hero.jpg"}, {n:"Sandalwood 100", p:"2500", i:"hero.jpg"}, {n:"Crystal Counter", p:"800", i:"hero.jpg"}, {n:"Ebony Beads", p:"3500", i:"hero.jpg"}
-                ]},
-                { id: 'boxes', title: 'Umrah Boxes', items: [
-                    {n:"Safar Deluxe", p:"15000", i:"hero.jpg"}, {n:"Executive Gift", p:"25000", i:"hero.jpg"}, {n:"Essential Set", p:"8500", i:"hero.jpg"}, {n:"Couple Box", p:"35000", i:"hero.jpg"}
-                ]}
+                { id: 'fragrances', title: 'Authentic Attars', items: Array(4).fill({n:"Musk Royal", p:"1400", i:"hero.jpg"}) },
+                { id: 'topis', title: 'Kufis & Topis', items: Array(4).fill({n:"Classic Koofi", p:"960", i:"hero.jpg"}) },
+                { id: 'rugs', title: 'Salah Rugs', items: Array(4).fill({n:"Velvet Prayer Mat", p:"4500", i:"hero.jpg"}) },
+                { id: 'boxes', title: 'Umrah Boxes', items: Array(4).fill({n:"Grand Gift Set", p:"15000", i:"hero.jpg"}) }
             ];
             const container = document.getElementById('shop-content'); if(!container) return;
             container.innerHTML = ""; allProducts = [];
             sections.forEach(sec => {
-                let h = `<section id="${sec.id}-sect" class="mb-24 reveal"><h3 class="text-3xl font-bold mb-10 border-b pb-4 text-black uppercase tracking-widest">${sec.title}</h3><div class="grid grid-cols-2 lg:grid-cols-4 gap-8">`;
+                let h = `<section id="${sec.id}-sect" class="mb-24 reveal"><h3 class="text-3xl font-bold mb-10 border-b pb-4 text-black uppercase">${sec.title}</h3><div class="grid grid-cols-2 lg:grid-cols-4 gap-8">`;
                 sec.items.forEach((item) => {
                     const idx = allProducts.length; allProducts.push({...item, cat: sec.title});
-                    h += `<div class="p-card p-4 text-center text-black">
-                        <img src="${item.i}" onclick="openProductDetail(${idx})" class="w-full h-64 object-cover mb-4 cursor-pointer hover:scale-110 transition duration-700">
-                        <h4 class="text-[10px] font-bold uppercase truncate">${item.n}</h4>
-                        <p class="text-gold font-bold mb-4">Rs. ${parseInt(item.p).toLocaleString()}</p>
-                        <button onclick="openProductDetail(${idx})" class="w-full py-3 border border-black text-[9px] font-bold uppercase hover:bg-black hover:text-white transition">Selection</button>
-                    </div>`;
+                    h += `<div class="p-card p-4 text-center text-black"><img src="${item.i}" onclick="openProductDetail(${idx})" class="w-full h-64 object-cover mb-4 cursor-pointer hover:scale-110 transition duration-700"><h4 class="text-[10px] font-bold uppercase truncate">${item.n}</h4><p class="text-gold font-bold mb-4">Rs. ${parseInt(item.p).toLocaleString()}</p><button onclick="openProductDetail(${idx})" class="w-full py-2 border border-black text-[8px] font-bold uppercase">Selection</button></div>`;
                 });
                 h += `</div></section>`; container.innerHTML += h;
             });
@@ -431,25 +394,27 @@
 
         function openLogin() { document.getElementById('login-modal').style.display='flex'; }
         function checkLogin() { if(document.getElementById('admin-pass').value==='mbs123'){showPage('dashboard');renderDashboard();document.getElementById('login-modal').style.display='none';} }
+        
         async function renderDashboard() { 
             const snap = await db.collection("orders").orderBy("timestamp", "desc").get();
             let s=0, p=0, d=0;
             document.getElementById('dash-order-rows').innerHTML = snap.docs.map(doc => {
                 const o = doc.data(); s += o.amount; (o.status==='Pending')? p++:d++;
-                return `<tr class="border-b border-white/5"><td class="py-4 text-gray-500">${o.date}</td><td>${o.name}</td><td class="text-[9px]">${o.items}</td><td class="text-gold">Rs. ${o.amount.toLocaleString()}</td><td>${o.status}</td><td><button onclick="toggleStatus('${doc.id}', '${o.status}')">Update</button></td></tr>`;
+                return `<tr class="border-b border-white/5 text-white"><td class="py-4 text-gray-500">${o.date}</td><td>${o.name}</td><td class="text-[9px]">${o.items}</td><td class="text-gold">Rs. ${o.amount.toLocaleString()}</td><td>${o.status}</td><td><button onclick="toggleStatus('${doc.id}', '${o.status}')">X</button></td></tr>`;
             }).join('');
             document.getElementById('stat-sales').innerText = `Rs. ${s.toLocaleString()}`;
             document.getElementById('stat-orders').innerText = snap.size;
             document.getElementById('stat-pending').innerText = p;
             document.getElementById('stat-dispatched').innerText = d;
+            
+            const salesData = snap.docs.slice(0, 7).reverse().map(doc => doc.data().amount);
+            const labels = snap.docs.slice(0, 7).reverse().map(doc => doc.data().name);
+            new Chart(document.getElementById('salesChart'), { type: 'line', data: { labels: labels, datasets: [{ label: 'Orders', data: salesData, borderColor: '#C5A059', tension: 0.4 }] }, options: { responsive: true } });
         }
+
         function handleReveal() { document.querySelectorAll('.reveal, .p-card').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active'); }); }
         window.onload = generate; window.onscroll = handleReveal;
         function goToShop(s) { showPage('shop'); setTimeout(() => { const el = document.getElementById(s + '-sect'); if(el) window.scrollTo({top: el.offsetTop - 120, behavior: 'smooth'}); }, 200); }
-        function removeItem(i) { cart.splice(i, 1); updateCartUI(); }
-        function closeProductDetail() { document.getElementById('product-detail-modal').style.display = 'none'; }
-        function openCheckout() { if(cart.length > 0) document.getElementById('checkout-modal').style.display = 'flex'; }
-        function togglePayMsg(s) { document.getElementById('easypesa-msg').style.display = s ? 'block' : 'none'; }
         async function toggleStatus(id, current) { await db.collection("orders").doc(id).update({ status: current==='Pending'?'Dispatched':'Pending' }); renderDashboard(); }
         async function clearDashboard() { if(confirm("Clear?")) { const snap = await db.collection("orders").get(); snap.docs.forEach(doc => doc.ref.delete()); renderDashboard(); } }
     </script>
