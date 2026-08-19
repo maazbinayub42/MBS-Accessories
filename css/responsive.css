@@ -1,0 +1,372 @@
+/* ============================================
+   MBS ISLAMIC ACCESSORIES — Responsive Styles
+   ============================================ */
+
+/* ---------- Tablet Landscape (1024px) ---------- */
+@media (max-width: 1024px) {
+  :root {
+    --section-gap: 80px;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    min-height: auto;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero__content {
+    padding-right: 0;
+    text-align: center;
+    order: 1;
+  }
+
+  .hero__text {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero__buttons {
+    justify-content: center;
+  }
+
+  .hero__image {
+    height: 450px;
+    order: 2;
+  }
+
+  .categories__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .story__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .story__image {
+    aspect-ratio: 16/9;
+  }
+
+  .trust__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .social__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .product-detail__grid {
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+  }
+
+  .product-detail__info {
+    grid-column: 1 / -1;
+  }
+
+  .cart__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cart__summary {
+    position: static;
+  }
+}
+
+/* ---------- Tablet Portrait (768px) ---------- */
+@media (max-width: 768px) {
+  :root {
+    --section-gap: 64px;
+    --gutter: 20px;
+  }
+
+  .heading-xl {
+    font-size: clamp(40px, 10vw, 64px);
+  }
+
+  .hero__image {
+    height: 360px;
+  }
+
+  .categories__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .products__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .editorial {
+    min-height: 400px;
+  }
+
+  .trust__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .social__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .cart__item {
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+  }
+
+  .cart__item-price {
+    grid-column: 2;
+    text-align: left;
+    margin-top: -4px;
+  }
+
+  .shop__toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------- Mobile (480px) ---------- */
+@media (max-width: 480px) {
+  :root {
+    --section-gap: 52px;
+    --gutter: 16px;
+  }
+
+  .header__inner {
+    height: 60px;
+  }
+
+  .header__logo img {
+    height: 32px;
+  }
+
+  .hero__grid {
+    padding: 20px 0;
+  }
+
+  .hero__image {
+    height: 300px;
+  }
+
+  .hero__buttons {
+    flex-direction: column;
+  }
+
+  .hero__buttons .btn {
+    width: 100%;
+  }
+
+  .categories__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .category-card {
+    aspect-ratio: 3/4;
+  }
+
+  .category-card__overlay {
+    padding: 16px;
+  }
+
+  .category-card__name {
+    font-size: 18px;
+  }
+
+  .category-card__desc {
+    display: none;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .product-card__info {
+    padding: 12px;
+  }
+
+  .product-card__name {
+    font-size: 15px;
+  }
+
+  .product-card__actions {
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    padding: 0 12px 12px;
+  }
+
+  .product-card__wishlist {
+    opacity: 1;
+  }
+
+  .editorial {
+    min-height: 350px;
+  }
+
+  .trust__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .social__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .whatsapp-float {
+    bottom: 16px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .whatsapp-float svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .product-detail__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-detail__thumbs {
+    flex-direction: row;
+    order: 2;
+    overflow-x: auto;
+    gap: 8px;
+  }
+
+  .product-detail__thumb {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+  }
+
+  .product-detail__main-image {
+    order: 1;
+    aspect-ratio: 1;
+  }
+
+  .product-detail__buttons {
+    flex-direction: column;
+  }
+
+  .cart__item {
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+  }
+
+  .cart__item-image {
+    width: 70px;
+    height: 85px;
+  }
+
+  .cart__summary {
+    padding: 24px;
+  }
+}
+
+/* ---------- Small Mobile (375px) ---------- */
+@media (max-width: 375px) {
+  .announcement {
+    font-size: 10px;
+    padding: 8px 12px;
+  }
+
+  .heading-lg {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .hero__eyebrow {
+    font-size: 10px;
+  }
+
+  .btn {
+    padding: 12px 28px;
+    font-size: 11px;
+  }
+
+  .category-card__name {
+    font-size: 16px;
+  }
+
+  .mobile-nav__list a {
+    font-size: 26px;
+  }
+
+  .footer__social a {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ---------- Very Small (320px) ---------- */
+@media (max-width: 320px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .product-card__image {
+    aspect-ratio: 1;
+  }
+
+  .categories__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__image {
+    height: 240px;
+  }
+}
