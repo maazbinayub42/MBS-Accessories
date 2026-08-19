@@ -363,8 +363,7 @@ var AdminApp = (function () {
     html += '<div class="card"><div class="card-body">';
     html += '<div class="form-group"><label class="form-label">Site Name</label><input type="text" class="form-input" id="site-name" value="' + escapeHTML(site.name || '') + '"></div>';
     html += '<div class="form-group"><label class="form-label">Tagline</label><input type="text" class="form-input" id="site-tagline" value="' + escapeHTML(site.tagline || '') + '"></div>';
-    html += '<div class="form-group"><label class="form-label">Logo URL</label><input type="text" class="form-input" id="site-logo" value="' + escapeHTML(site.logo || '') + '">';
-    html += '<div class="mt-8"><img id="site-logo-preview" src="' + escapeHTML(site.logo || '') + '" class="image-preview" style="display:' + (site.logo ? 'block' : 'none') + '" onerror="this.style.display=\'none\'"></div></div>';
+    html += imageInputWithUpload('site-logo', 'Logo URL', site.logo);
 
     html += '<hr style="border:none;border-top:1px solid var(--admin-border);margin:24px 0">';
     html += '<h3 style="font-size:16px;font-weight:600;margin-bottom:16px">Announcement Bar</h3>';
@@ -458,7 +457,13 @@ var AdminApp = (function () {
       html += '</div>';
     }
     if (data.image !== undefined) {
-      html += '<div class="form-group"><label class="form-label">Image URL</label><input type="text" class="form-input cms-section-field" data-section="' + key + '" data-field="image" value="' + escapeHTML(data.image || '') + '">';
+      var imgId = 'section-img-' + key;
+      html += '<div class="form-group"><label class="form-label">Image</label>';
+      html += '<div class="image-input-row">';
+      html += '<input type="text" class="form-input cms-section-field" data-section="' + key + '" data-field="image" value="' + escapeHTML(data.image || '') + '" placeholder="Enter image URL or upload..." style="flex:1" id="' + imgId + '">';
+      html += '<button type="button" class="btn btn--sm btn--outline upload-trigger-btn" data-target="' + imgId + '" title="Upload from PC"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload</button>';
+      html += '<button type="button" class="btn btn--sm btn--primary browse-trigger-btn" data-target="' + imgId + '" title="Pick from media library"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Browse</button>';
+      html += '</div>';
       if (data.image) {
         html += '<div class="mt-8"><img src="' + escapeHTML(data.image) + '" class="image-preview image-preview--lg" onerror="this.style.display=\'none\'"></div>';
       }
@@ -507,12 +512,8 @@ var AdminApp = (function () {
     html += '</div>';
 
     html += '<h3 style="font-size:16px;font-weight:600;margin:20px 0 12px">Images</h3>';
-    html += '<div class="form-group"><label class="form-label">Hero Image URL</label><input type="text" class="form-input" id="hero-image" value="' + escapeHTML(hero.image || '') + '">';
-    if (hero.image) html += '<div class="mt-8"><img src="' + escapeHTML(hero.image) + '" class="image-preview image-preview--lg" onerror="this.style.display=\'none\'"></div>';
-    html += '</div>';
-    html += '<div class="form-group"><label class="form-label">Mobile Hero Image URL</label><input type="text" class="form-input" id="hero-mobile-image" value="' + escapeHTML(hero.mobileImage || '') + '">';
-    if (hero.mobileImage) html += '<div class="mt-8"><img src="' + escapeHTML(hero.mobileImage) + '" class="image-preview image-preview--lg" onerror="this.style.display=\'none\'"></div>';
-    html += '</div>';
+    html += imageInputWithUpload('hero-image', 'Hero Image', hero.image);
+    html += imageInputWithUpload('hero-mobile-image', 'Mobile Hero Image', hero.mobileImage);
 
     html += '<div class="form-group"><label class="form-label">Overlay Opacity: <strong id="hero-overlay-val">' + (hero.overlay !== undefined ? hero.overlay : 0.4) + '</strong></label><input type="range" id="hero-overlay" min="0" max="1" step="0.1" value="' + (hero.overlay !== undefined ? hero.overlay : 0.4) + '" style="width:100%"></div>';
     html += '<div class="form-group"><label class="form-label">Enabled</label><label class="toggle"><input type="checkbox" id="hero-enabled"' + (hero.enabled !== false ? ' checked' : '') + '><span class="toggle__slider"></span></label></div>';
@@ -750,14 +751,13 @@ var AdminApp = (function () {
     html += '</div>';
 
     html += '<div class="tab-content" id="tab-images">';
-    html += '<div class="form-group"><label class="form-label">Main Image URL</label><input type="text" class="form-input" id="prod-main-image" value="' + escapeHTML(image) + '">';
-    if (image) html += '<div class="mt-8"><img src="' + escapeHTML(image) + '" class="image-preview image-preview--lg" onerror="this.style.display=\'none\'"></div>';
-    html += '</div>';
+    html += imageInputWithUpload('prod-main-image', 'Main Image', image);
     html += '<div class="form-group"><label class="form-label">Gallery Images</label><div id="gallery-images-list">';
     images.forEach(function (img, i) {
       html += '<div class="flex gap-8 mb-8 gallery-item" style="align-items:center">';
       html += '<img src="' + escapeHTML(img) + '" class="image-preview" onerror="this.style.display=\'none\'">';
-      html += '<input type="text" class="form-input gallery-url-input" value="' + escapeHTML(img) + '" style="flex:1">';
+      html += '<input type="text" class="form-input gallery-url-input" value="' + escapeHTML(img) + '" placeholder="Enter image URL" style="flex:1">';
+      html += '<button type="button" class="btn btn--sm btn--outline gallery-upload-btn" data-gallery-index="' + i + '" title="Upload from PC"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></button>';
       html += '<button class="btn btn--sm btn--danger remove-gallery-btn" data-index="' + i + '">Remove</button>';
       html += '</div>';
     });
@@ -858,15 +858,9 @@ var AdminApp = (function () {
     html += '<div class="form-group"><label class="form-label">Slug</label><input type="text" class="form-input" id="cat-slug" value="' + escapeHTML(slug) + '"><p class="form-hint">Auto-generated from name.</p></div>';
     html += '<div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="cat-description">' + escapeHTML(desc) + '</textarea></div>';
 
-    html += '<div class="form-group"><label class="form-label">Category Image URL</label><input type="text" class="form-input" id="cat-image" value="' + escapeHTML(image) + '">';
-    if (image) html += '<div class="mt-8"><img src="' + escapeHTML(image) + '" class="image-preview image-preview--lg" onerror="this.style.display=\'none\'"></div>';
-    html += '</div>';
-    html += '<div class="form-group"><label class="form-label">Hero Image URL</label><input type="text" class="form-input" id="cat-hero-image" value="' + escapeHTML(heroImage) + '">';
-    if (heroImage) html += '<div class="mt-8"><img src="' + escapeHTML(heroImage) + '" class="image-preview image-preview--lg" onerror="this.style.display=\'none\'"></div>';
-    html += '</div>';
-    html += '<div class="form-group"><label class="form-label">Banner Image URL</label><input type="text" class="form-input" id="cat-banner-image" value="' + escapeHTML(bannerImage) + '">';
-    if (bannerImage) html += '<div class="mt-8"><img src="' + escapeHTML(bannerImage) + '" class="image-preview image-preview--lg" onerror="this.style.display=\'none\'"></div>';
-    html += '</div>';
+    html += imageInputWithUpload('cat-image', 'Category Image', image);
+    html += imageInputWithUpload('cat-hero-image', 'Hero Image', heroImage);
+    html += imageInputWithUpload('cat-banner-image', 'Banner Image', bannerImage);
 
     html += '<div class="form-row">';
     html += '<div class="form-group"><label class="form-label">Display Order</label><input type="number" class="form-input" id="cat-order" value="' + escapeHTML(order) + '" min="0"></div>';
@@ -892,32 +886,54 @@ var AdminApp = (function () {
     html += '<div class="page-header"><div><p class="page-subtitle">Manage your media files.</p></div></div>';
 
     html += '<div class="card mb-24"><div class="card-body">';
-    html += '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px">Add Media by URL</h3>';
+    html += '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px">Upload Images</h3>';
+    html += '<div class="media-upload-zone" id="media-drop-zone">';
+    html += '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--admin-text-muted)" stroke-width="1.5" style="margin-bottom:12px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>';
+    html += '<p style="font-size:15px;font-weight:500;margin-bottom:4px">Drag & drop images here</p>';
+    html += '<p style="font-size:13px;color:var(--admin-text-muted);margin-bottom:12px">or</p>';
+    html += '<button type="button" class="btn btn--primary" id="media-browse-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Browse Files</button>';
+    html += '<p style="font-size:12px;color:var(--admin-text-muted);margin-top:8px">JPG, PNG, WebP — Max 10MB each</p>';
+    html += '</div>';
+    html += '<input type="file" id="media-file-input" accept="image/jpeg,image/png,image/webp" multiple style="display:none">';
+    html += '</div></div>';
+
+    html += '<div class="card mb-24"><div class="card-body">';
+    html += '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px;cursor:pointer" id="toggle-url-input">+ Add by URL</h3>';
+    html += '<div id="url-input-area" style="display:none">';
     html += '<div class="flex gap-8">';
     html += '<input type="text" class="form-input" id="media-url-input" placeholder="Enter image URL..." style="flex:1">';
     html += '<input type="text" class="form-input" id="media-name-input" placeholder="Name (optional)" style="max-width:200px">';
     html += '<select class="form-select" id="media-type-input" style="max-width:150px"><option value="other">Other</option><option value="products">Products</option><option value="categories">Categories</option><option value="banners">Banners</option><option value="website">Website</option></select>';
     html += '<button class="btn btn--primary" id="add-media-btn">Add</button>';
-    html += '</div></div></div>';
+    html += '</div></div></div></div>';
 
     html += '<div class="card"><div class="card-body">';
     html += '<div class="flex gap-16 mb-20" style="flex-wrap:wrap">';
-    html += '<div class="search-bar" style="flex:1;min-width:200px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" class="form-input" id="media-search" placeholder="Search media..."></div>';
+    html += '<div class="search-bar" style="flex:1;min-width:200px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" class="form-input" id="media-search" placeholder="Search media..."></div>';
     html += '<div style="min-width:150px"><select class="form-select" id="media-type-filter"><option value="">All Types</option><option value="products">Products</option><option value="categories">Categories</option><option value="banners">Banners</option><option value="website">Website</option><option value="other">Other</option></select></div>';
     html += '</div>';
 
     html += '<div class="flex gap-16" style="flex-wrap:wrap" id="media-grid">';
     if (media.length === 0) {
-      html += '<div class="empty-state" style="width:100%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><h3 class="empty-state__title">No media yet</h3><p class="empty-state__text">Add images by URL above.</p></div>';
+      html += '<div class="empty-state" style="width:100%"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--admin-text-muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p class="empty-state__heading">No media yet</p><p class="empty-state__text">Upload images using the area above.</p></div>';
     }
     media.forEach(function (item) {
-      html += '<div class="media-item" style="width:180px;border:1px solid var(--admin-border);border-radius:var(--admin-radius);overflow:hidden;background:var(--admin-surface)" data-media-name="' + escapeHTML((item.name || item.url || '').toLowerCase()) + '" data-media-type="' + escapeHTML(item.type || '') + '">';
-      html += '<img src="' + escapeHTML(item.url || '') + '" style="width:100%;height:120px;object-fit:cover;display:block" onerror="this.style.display=\'none\'">';
+      var imgSrc = escapeHTML(item.url || '');
+      var itemName = escapeHTML(item.name || 'Unnamed');
+      var itemType = escapeHTML(item.type || 'other');
+      var sizeInfo = '';
+      if (item.url && item.url.indexOf('data:image') === 0) {
+        var bytes = Math.round((item.url.length * 3) / 4);
+        if (bytes > 1024) sizeInfo = ' (' + Math.round(bytes / 1024) + ' KB)';
+        else sizeInfo = ' (' + bytes + ' B)';
+      }
+      html += '<div class="media-item" style="width:180px;border:1px solid var(--admin-border);border-radius:var(--admin-radius);overflow:hidden" data-media-name="' + itemName + '" data-media-type="' + itemType + '">';
+      html += '<img src="' + imgSrc + '" style="width:100%;height:120px;object-fit:cover;display:block" onerror="this.style.display=\'none\'">';
       html += '<div style="padding:10px">';
-      html += '<div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="' + escapeHTML(item.name || item.url || '') + '">' + escapeHTML(item.name || 'Unnamed') + '</div>';
-      html += '<div style="font-size:11px;color:var(--admin-text-muted);margin-top:2px">' + escapeHTML(item.type || 'other') + '</div>';
+      html += '<div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="' + itemName + '">' + itemName + '</div>';
+      html += '<div style="font-size:11px;color:var(--admin-text-muted)">' + itemType + sizeInfo + '</div>';
       html += '<div class="flex gap-8 mt-8">';
-      html += '<button class="btn btn--sm btn--outline copy-media-url-btn" data-url="' + escapeHTML(item.url || '') + '">Copy URL</button>';
+      html += '<button class="btn btn--sm btn--outline copy-media-url-btn" data-url="' + imgSrc + '">Copy URL</button>';
       html += '<button class="btn btn--sm btn--danger delete-media-btn" data-id="' + escapeHTML(item.id) + '">Delete</button>';
       html += '</div></div></div>';
     });
@@ -1323,6 +1339,79 @@ var AdminApp = (function () {
       return;
     }
 
+    // Upload trigger buttons (next to image inputs)
+    if (target.classList.contains('upload-trigger-btn')) {
+      e.preventDefault();
+      var targetId = target.getAttribute('data-target');
+      var fileInput = createFileInput('upload-trigger-' + Date.now(), 'image/*');
+      fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+          uploadImageFile(this.files[0], function(dataUrl) {
+            var input = document.getElementById(targetId);
+            if (input) {
+              input.value = dataUrl;
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            document.body.removeChild(fileInput);
+          });
+        }
+      });
+      fileInput.click();
+      return;
+    }
+
+    // Browse trigger buttons (media library picker)
+    if (target.classList.contains('browse-trigger-btn')) {
+      e.preventDefault();
+      var targetId = target.getAttribute('data-target');
+      showMediaBrowserModal(function(url) {
+        var input = document.getElementById(targetId);
+        if (input) {
+          input.value = url;
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
+      return;
+    }
+
+    // Gallery upload buttons
+    if (target.classList.contains('gallery-upload-btn')) {
+      e.preventDefault();
+      var galleryItem = target.closest ? target.closest('.gallery-item') : null;
+      if (!galleryItem) return;
+      var urlInput = galleryItem.querySelector('.gallery-url-input');
+      var fileInput = createFileInput('gallery-upload-' + Date.now(), 'image/*');
+      fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+          uploadImageFile(this.files[0], function(dataUrl) {
+            if (urlInput) {
+              urlInput.value = dataUrl;
+              urlInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            document.body.removeChild(fileInput);
+          });
+        }
+      });
+      fileInput.click();
+      return;
+    }
+
+    // Media library browse button
+    if (target.id === 'media-browse-btn') {
+      e.preventDefault();
+      var fileInput = document.getElementById('media-file-input');
+      if (fileInput) fileInput.click();
+      return;
+    }
+
+    // Toggle URL input area
+    if (target.id === 'toggle-url-input') {
+      e.preventDefault();
+      var area = document.getElementById('url-input-area');
+      if (area) area.style.display = area.style.display === 'none' ? 'block' : 'none';
+      return;
+    }
+
     // Save Social
     if (target.id === 'save-social') {
       e.preventDefault();
@@ -1383,7 +1472,7 @@ var AdminApp = (function () {
         var div = document.createElement('div');
         div.className = 'flex gap-8 mb-8 gallery-item';
         div.style.alignItems = 'center';
-        div.innerHTML = '<img src="" class="image-preview" style="display:none"><input type="text" class="form-input gallery-url-input" value="" placeholder="Enter image URL" style="flex:1"><button class="btn btn--sm btn--danger remove-gallery-btn" data-index="' + idx + '">Remove</button>';
+        div.innerHTML = '<img src="" class="image-preview" style="display:none"><input type="text" class="form-input gallery-url-input" value="" placeholder="Enter image URL" style="flex:1"><button type="button" class="btn btn--sm btn--outline gallery-upload-btn" title="Upload from PC"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></button><button class="btn btn--sm btn--danger remove-gallery-btn" data-index="' + idx + '">Remove</button>';
         list.appendChild(div);
       }
       return;
@@ -1887,6 +1976,126 @@ var AdminApp = (function () {
   }
 
   /* ================================================================
+     IMAGE UPLOAD UTILITIES
+     ================================================================ */
+
+  function compressImage(file, maxWidth, quality) {
+    return new Promise(function(resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var canvas = document.createElement('canvas');
+          var w = img.width;
+          var h = img.height;
+          if (w > maxWidth) {
+            h = (maxWidth / w) * h;
+            w = maxWidth;
+          }
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          var dataUrl = canvas.toDataURL('image/jpeg', quality || 0.7);
+          resolve(dataUrl);
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function uploadImageFile(file, callback) {
+    if (!file || !file.type.startsWith('image/')) {
+      showToast('Please select a valid image file', 'error');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      showToast('Image must be under 10MB', 'error');
+      return;
+    }
+    showToast('Processing image...', 'info');
+    compressImage(file, 1200, 0.75).then(function(dataUrl) {
+      try {
+        var testKey = '__size_test__';
+        localStorage.setItem(testKey, dataUrl);
+        localStorage.removeItem(testKey);
+      } catch (e) {
+        showToast('Storage full! Delete some media first.', 'error');
+        return;
+      }
+      callback(dataUrl);
+    }).catch(function() {
+      showToast('Failed to process image', 'error');
+    });
+  }
+
+  function createFileInput(id, accept) {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.id = id || 'hidden-file-input';
+    input.accept = accept || 'image/*';
+    input.style.display = 'none';
+    document.body.appendChild(input);
+    return input;
+  }
+
+  function showMediaBrowserModal(callback) {
+    var media = MBSCMS.getMedia();
+    var html = '<div style="max-height:400px;overflow-y:auto">';
+    if (media.length === 0) {
+      html += '<div class="empty-state"><p class="empty-state__text">No media uploaded yet. Upload images in the Media Library first.</p></div>';
+    } else {
+      html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px">';
+      media.forEach(function(item) {
+        html += '<div class="media-browser-item" data-url="' + escapeHTML(item.url) + '" style="cursor:pointer;border:2px solid transparent;border-radius:8px;overflow:hidden;transition:border-color 0.2s">';
+        html += '<img src="' + escapeHTML(item.url) + '" style="width:100%;height:80px;object-fit:cover;display:block" onerror="this.style.display=\'none\'">';
+        html += '<div style="padding:6px;font-size:11px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + escapeHTML(item.name) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+
+    showModal('Select Image', html, [
+      { label: 'Cancel', className: 'btn btn--outline', onClick: closeModal }
+    ]);
+
+    setTimeout(function() {
+      var items = document.querySelectorAll('.media-browser-item');
+      items.forEach(function(item) {
+        item.addEventListener('click', function() {
+          var url = this.getAttribute('data-url');
+          callback(url);
+          closeModal();
+        });
+        item.addEventListener('mouseenter', function() {
+          this.style.borderColor = 'var(--admin-primary)';
+        });
+        item.addEventListener('mouseleave', function() {
+          this.style.borderColor = 'transparent';
+        });
+      });
+    }, 50);
+  }
+
+  function imageInputWithUpload(id, label, value, cssClass) {
+    var html = '<div class="form-group"><label class="form-label">' + label + '</label>';
+    html += '<div class="image-input-row">';
+    html += '<input type="text" class="form-input ' + (cssClass || '') + '" id="' + id + '" value="' + escapeHTML(value || '') + '" placeholder="Enter image URL or upload..." style="flex:1">';
+    html += '<button type="button" class="btn btn--sm btn--outline upload-trigger-btn" data-target="' + id + '" title="Upload from PC"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload</button>';
+    html += '<button type="button" class="btn btn--sm btn--primary browse-trigger-btn" data-target="' + id + '" title="Pick from media library"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Browse</button>';
+    html += '</div>';
+    if (value) {
+      html += '<div class="mt-8"><img src="' + escapeHTML(value) + '" class="image-preview image-preview--lg" onerror="this.style.display=\'none\'"></div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  /* ================================================================
      GLOBAL EVENT LISTENERS
      ================================================================ */
 
@@ -1988,6 +2197,66 @@ var AdminApp = (function () {
         filterMedia();
       }
     });
+
+    // Media library drag and drop
+    var dropZone = document.getElementById('media-drop-zone');
+    var fileInput = document.getElementById('media-file-input');
+
+    if (dropZone && fileInput) {
+      dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.add('media-upload-zone--active');
+      });
+      dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.remove('media-upload-zone--active');
+      });
+      dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.remove('media-upload-zone--active');
+        var files = e.dataTransfer.files;
+        handleMediaFiles(files);
+      });
+      fileInput.addEventListener('change', function() {
+        handleMediaFiles(this.files);
+        this.value = '';
+      });
+    }
+
+    function handleMediaFiles(files) {
+      if (!files || files.length === 0) return;
+      var count = 0;
+      var total = files.length;
+      showToast('Uploading ' + total + ' image(s)...', 'info');
+
+      function processNext() {
+        if (count >= total) {
+          showToast('All images uploaded!', 'success');
+          refresh();
+          navigateTo('#/media');
+          return;
+        }
+        var file = files[count];
+        if (!file.type.startsWith('image/')) {
+          count++;
+          processNext();
+          return;
+        }
+        uploadImageFile(file, function(dataUrl) {
+          MBSCMS.addMedia({
+            url: dataUrl,
+            name: file.name,
+            type: 'other'
+          });
+          count++;
+          processNext();
+        });
+      }
+      processNext();
+    }
   }
 
   function filterProducts() {

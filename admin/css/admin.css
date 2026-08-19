@@ -1069,3 +1069,82 @@ tr:hover td {
 .sidebar-overlay.active {
     display: block;
 }
+
+/* Image upload row */
+.image-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.image-input-row .form-input {
+    flex: 1;
+}
+
+/* Upload zone */
+.media-upload-zone {
+    border: 2px dashed var(--admin-border);
+    border-radius: var(--admin-radius);
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--admin-transition);
+    background: var(--admin-bg);
+}
+
+.media-upload-zone:hover,
+.media-upload-zone--active {
+    border-color: var(--admin-primary);
+    background: rgba(198, 161, 91, 0.05);
+}
+
+.media-upload-zone--active {
+    border-style: solid;
+    background: rgba(198, 161, 91, 0.1);
+}
+
+/* Media browser modal items */
+.media-browser-item:hover {
+    border-color: var(--admin-primary) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Upload button styles */
+.upload-trigger-btn {
+    white-space: nowrap;
+}
+
+.browse-trigger-btn {
+    white-space: nowrap;
+}
+
+/* Gallery upload button */
+.gallery-upload-btn {
+    padding: 4px 8px;
+    min-width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Media item size info */
+.media-item {
+    transition: box-shadow 0.2s;
+}
+
+.media-item:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive image input row */
+@media (max-width: 768px) {
+    .image-input-row {
+        flex-wrap: wrap;
+    }
+    .image-input-row .form-input {
+        width: 100%;
+    }
+    .image-input-row .btn {
+        flex: 1;
+    }
+}
