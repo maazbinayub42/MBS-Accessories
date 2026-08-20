@@ -1,0 +1,240 @@
+// ============================================
+// MBS Islamic Accessories — Prisma Schema
+// ============================================
+// Local dev: SQLite  |  Production: PostgreSQL (Supabase)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Categories ──────────────────────────────
+
+model Category {
+  id          String   @id
+  name        String
+  slug        String   @unique
+  description String   @default("")
+  image       String   @default("")
+  heroImage   String   @default("")
+  bannerImage String   @default("")
+  displayOrder Int     @default(0)
+  featured    Boolean  @default(false)
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products    Product[]
+
+  @@map("categories")
+}
+
+// ─── Products ────────────────────────────────
+
+model Product {
+  id              String   @id
+  name            String
+  slug            String   @unique
+  description     String   @default("")
+  shortDescription String  @default("")
+  price           Int      @default(0)
+  originalPrice   Int?
+  sku             String   @default("")
+  stock           Int      @default(0)
+  status          String   @default("active") // active | draft | inactive
+  featured        Boolean  @default(false)
+  bestSeller      Boolean  @default(false)
+  badge           String?  // Sale | New | Bestseller | Popular
+  image           String   @default("")
+  displayOrder    Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  categoryId      String?
+  category        Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  images          ProductImage[]
+  variants        ProductVariant[]
+  orderItems      OrderItem[]
+
+  @@map("products")
+}
+
+// ─── Product Images (Gallery) ────────────────
+
+model ProductImage {
+  id            String   @id @default(cuid())
+  url           String
+  displayOrder  Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+// ─── Product Variants ────────────────────────
+
+model ProductVariant {
+  id            String   @id @default(cuid())
+  name          String            // e.g. "Size", "Volume"
+  value         String            // e.g. "Small", "6ml"
+  price         Int      @default(0)
+  stock         Int      @default(0)
+  status        String   @default("active") // active | inactive
+  displayOrder  Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_variants")
+}
+
+// ─── Navigation Items ────────────────────────
+
+model NavigationItem {
+  id            String   @id
+  label         String
+  url           String
+  enabled       Boolean  @default(true)
+  displayOrder  Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("navigation_items")
+}
+
+// ─── Homepage Sections (Flexible CMS) ────────
+
+model HomepageSection {
+  id            String   @id   // 'hero', 'categories', 'featured', 'editorial', 'brandStory', 'whyMbs', 'signature', 'social', 'whatsappCta'
+  sectionType   String
+  content       String   @default("{}") // JSON string (SQLite doesn't have JSONB)
+  displayOrder  Int      @default(0)
+  enabled       Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("homepage_sections")
+}
+
+// ─── Pages (About, Contact) ──────────────────
+
+model Page {
+  id          String   @id   // 'about', 'contact'
+  heading     String   @default("")
+  subheading  String   @default("")
+  content     String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("pages")
+}
+
+// ─── Footer Links ────────────────────────────
+
+model FooterLink {
+  id            String   @id @default(cuid())
+  groupName     String           // 'shop' | 'company' | 'support'
+  label         String
+  url           String
+  displayOrder  Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  @@map("footer_links")
+}
+
+// ─── Media Library ───────────────────────────
+
+model Media {
+  id          String   @id
+  url         String
+  name        String
+  type        String   @default("other") // products | categories | banners | website | other
+  fileSize    Int?
+  createdAt   DateTime @default(now())
+
+  @@map("media")
+}
+
+// ─── Site Settings (Key-Value Groups) ────────
+
+model SiteSetting {
+  id          String   @id   // 'site', 'social', 'design', 'announcement'
+  settings    String   @default("{}") // JSON string
+  updatedAt   DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+// ─── SEO Settings ────────────────────────────
+
+model SeoSetting {
+  id          String   @id   // 'home', 'shop', 'about', 'contact'
+  title       String   @default("")
+  description String   @default("")
+  keywords    String   @default("")
+  updatedAt   DateTime @updatedAt
+
+  @@map("seo_settings")
+}
+
+// ─── Customers ───────────────────────────────
+
+model Customer {
+  id          String   @id @default(cuid())
+  name        String
+  email       String?
+  phone       String?
+  address     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orders      Order[]
+
+  @@map("customers")
+}
+
+// ─── Orders ──────────────────────────────────
+
+model Order {
+  id          String   @id @default(cuid())
+  status      String   @default("pending") // pending | confirmed | shipped | delivered | cancelled
+  total       Int      @default(0)
+  notes       String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  customerId  String?
+  customer    Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  items       OrderItem[]
+
+  @@map("orders")
+}
+
+// ─── Order Items ─────────────────────────────
+
+model OrderItem {
+  id            String   @id @default(cuid())
+  productName   String
+  productImage  String?
+  variant       String   @default("")
+  quantity      Int      @default(1)
+  price         Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  orderId       String
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId     String?
+  product       Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@map("order_items")
+}

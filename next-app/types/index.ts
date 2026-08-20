@@ -276,3 +276,173 @@ export interface CartItem {
   variant: string;
   qty: number;
 }
+
+// ─── Database Model Types ────────────────────
+
+export type DBCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  image: string;
+  heroImage: string;
+  bannerImage: string;
+  displayOrder: number;
+  featured: boolean;
+  enabled: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type DBProductImage = {
+  id: string;
+  url: string;
+  displayOrder: number;
+  createdAt: Date;
+  productId: string;
+};
+
+export type DBProductVariant = {
+  id: string;
+  name: string;
+  value: string;
+  price: number;
+  stock: number;
+  status: string;
+  displayOrder: number;
+  createdAt: Date;
+  productId: string;
+};
+
+export type DBProduct = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  shortDescription: string;
+  price: number;
+  originalPrice: number | null;
+  sku: string;
+  stock: number;
+  status: string;
+  featured: boolean;
+  bestSeller: boolean;
+  badge: string | null;
+  image: string;
+  displayOrder: number;
+  createdAt: Date;
+  updatedAt: Date;
+  categoryId: string | null;
+};
+
+export type DBProductWithRelations = DBProduct & {
+  category: DBCategory | null;
+  images: DBProductImage[];
+  variants: DBProductVariant[];
+};
+
+export type DBNavigationItem = {
+  id: string;
+  label: string;
+  url: string;
+  enabled: boolean;
+  displayOrder: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type DBHomepageSection = {
+  id: string;
+  sectionType: string;
+  content: string;
+  displayOrder: number;
+  enabled: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type DBPage = {
+  id: string;
+  heading: string;
+  subheading: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type DBFooterLink = {
+  id: string;
+  groupName: string;
+  label: string;
+  url: string;
+  displayOrder: number;
+  createdAt: Date;
+};
+
+export type DBMedia = {
+  id: string;
+  url: string;
+  name: string;
+  type: string;
+  fileSize: number | null;
+  createdAt: Date;
+};
+
+export type DBSiteSetting = {
+  id: string;
+  settings: string;
+  updatedAt: Date;
+};
+
+export type DBSiteSettingParsed = DBSiteSetting & {
+  settings: Record<string, unknown>;
+};
+
+export type DBSeoSetting = {
+  id: string;
+  title: string;
+  description: string;
+  keywords: string;
+  updatedAt: Date;
+};
+
+export type DBCustomer = {
+  id: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  address: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type DBCustomerWithOrders = DBCustomer & {
+  orders: DBOrder[];
+};
+
+export type DBOrder = {
+  id: string;
+  status: string;
+  total: number;
+  notes: string;
+  createdAt: Date;
+  updatedAt: Date;
+  customerId: string | null;
+};
+
+export type DBOrderWithRelations = DBOrder & {
+  customer: DBCustomer | null;
+  items: DBOrderItem[];
+};
+
+export type DBOrderItem = {
+  id: string;
+  productName: string;
+  productImage: string | null;
+  variant: string;
+  quantity: number;
+  price: number;
+  createdAt: Date;
+  orderId: string;
+  productId: string | null;
+};
